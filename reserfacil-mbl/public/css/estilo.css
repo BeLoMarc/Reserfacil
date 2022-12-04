@@ -552,13 +552,15 @@ tr{
     margin: 20px auto 50px;
     padding: 30px;
     width: 80%;
+    
   }
  
   
   .form form {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
+    
   }
   
   .form__title {
@@ -587,6 +589,7 @@ tr{
     font-family: "calibri";
     font-size: 18px;
     color: rgb(20, 1, 1);
+    
   }
   
   .form__info.half {

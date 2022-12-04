@@ -6,9 +6,11 @@ use App\Models\restaurante;
 use App\Models\restaurantes;
 use Illuminate\Http\Request;
 use Error;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+
 
 class controladorPIni extends Controller
 {
@@ -37,8 +39,6 @@ class controladorPIni extends Controller
 
     public function Filtro(Request $request)
     {
-
-
 
         if (($request->post('restauranteSelect') != "v") && ($request->post('localidadSelect') != "v") && ($request->post('categoriaSelect') != "v")) { //BUSCA RESTAURANTE LOCALIDAD Y CATEGORIA
             $restaurantes = restaurantes
@@ -117,4 +117,5 @@ class controladorPIni extends Controller
         $localidades = DB::table('localidad')->orderBy('nombre')->get();
         return view('index', compact('restaurantes', 'restauranteUnico', 'categorias', 'localidades', 'categoriasRestaurante', 'localidadesRestaurante'));
     }
+
 }

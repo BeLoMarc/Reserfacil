@@ -1,5 +1,5 @@
 <!-- TODO EL HTML QUE TENGA EN EL ARCHIVO PLANTILLA APARECERÁ AQUI -->
-@extends('plantilla/plantilla')
+@extends('plantilla/plantillaGerente')
 
 
 {{--  
@@ -25,60 +25,12 @@
             @endif
         </div>
     </div>
-    <div class="form">
-        <p class="form__title">Eliga Restaurante</p>
-        <form action="{{ route('inicio.filtrado') }}" method="POST">
-            @csrf
-            <fieldset>
-                <legend>Elija su restaurante perfecto</legend>
-                <div class="form__info">
-                    <label for="Select" class="form__info__label">Restaurante donde quieres comer:</label>
-                    <select name="restauranteSelect" id="Select" class="form__controls" >
-                        <!-- Restaurante unico es un array de restaurantes donde estan ordenador por nombre y este no se repite -->
-                        <option value="v">Cualquier Restaurante</option>
-                        @foreach ($restauranteUnico as $restaurante)
-                            <option value="{{ $restaurante->nombre }}">{{ $restaurante->nombre }}</option>
-                        @endforeach
-
-                    </select>
-                </div>
-                <!-- CARGAR TODAS LAS LOCALIDADES -->
-
-                <div class="form__info">
-                    <label for="Select" class="form__info__label">Localidad donde quiere comer:</label>
-                    <select name="localidadSelect" id="Select" class="form__controls">
-                        <option value="v">Cualquier localidad</option>
-                        @foreach ($localidades as $localidad)
-                            <option value="{{ $localidad->codigoLocalidad }}">{{ $localidad->nombre }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <!-- CARGAR TODAS LAS CATEGORIAS -->
-                <div class="form__info">
-                    <label for="Select" class="form__info__label">Tipo de comida del restaurante:</label>
-                    <select name="categoriaSelect" id="Select" class="form__controls">
-                        <option value="v">Cualquier categoria</option>
-                        @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->codigoCategoria }}">{{ $categoria->nombre }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form__info half">
-                    <input class="form__info__button" type="submit" value="Buscar" />
-                </div>
-
-            </fieldset>
-        </form>
-    </div>
 @endsection
 @section('restaurantes')
     @foreach ($restaurantes as $restaurante)
         <div class="main__book">
-           @if (Session::get('admin')===0)
-           <a class="main__book__link"
-           href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>   
-           @endif
+            <a class="main__book__link"
+                href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>
             <figure class="main__book__cover">
                 <img alt="" src="../Multimedia/fotosRestaurante/{{ $restaurante->foto }}" />
             </figure>

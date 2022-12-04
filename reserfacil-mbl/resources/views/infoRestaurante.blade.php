@@ -193,8 +193,10 @@
 
     @foreach ($restaurantes as $restaurante)
         <div class="main__book">
-            <a class="main__book__link"
-                href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>
+            @if (Session::get('admin')===0)
+           <a class="main__book__link"
+           href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>   
+           @endif
             <figure class="main__book__cover">
                 <img alt="" src="../Multimedia/fotosRestaurante/{{ $restaurante->foto }}" />
             </figure>

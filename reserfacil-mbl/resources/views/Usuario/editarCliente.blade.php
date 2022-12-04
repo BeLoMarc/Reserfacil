@@ -22,28 +22,31 @@
                 </ul>
             </div>
         @endif
-        <form action="{{ route('cliente.update', Auth::user()->Id) }}" method="POST" enctype="multipart/form-data"
+        @foreach ($cliente as $cli)
+            
+      
+        <form action="{{ route('cliente.update', Session::get('user')) }}" method="POST" enctype="multipart/form-data"
             id="editarCliente">
             @csrf
             @method('PUT')
             <!--El formulario mas correcto para actualizar es mediante el metodo put-->
             <div class="form__info">
                 <label for="email" class="form__info__label">Email <strong>*</strong>:</label>
-                <input type="email" class="form__controls" value="{{ Auth::user()->email }}" name="email"
+                <input type="email" class="form__controls" value="{{ $cli->email }}" name="email"
                     id="correoCliente">
                 <div id="malCorreoLoggin" class="invalid-feedback"></div>
 
             </div>
             <div class="form__info">
                 <label for="Nombre" class="form__info__label">Nombre:</label>
-                <input type="text" class="form__controls" placeholder="Nuevo Nombre" value="{{ Auth::user()->nombre }}"
+                <input type="text" class="form__controls" placeholder="Nuevo Nombre" value="{{ $cli->nombre }}"
                     name="nombre" id="nombreCliente">
                 <div id="malNombreCliente" class="invalid-feedback"></div>
 
             </div>
             <div class="form__info">
                 <label for="telefono" class="form__info__label">Telefono:</label>
-                <input type="text" class="form__controls" placeholder="XXXXXXXXX" value="{{ Auth::user()->telefono }}"
+                <input type="text" class="form__controls" placeholder="XXXXXXXXX" value="{{ $cli->telefono }}"
                     name="telefono" id="telefonoCliente">
                 <div id="malTelefonoCliente" class="invalid-feedback"></div>
             </div>
@@ -56,6 +59,7 @@
 
             </div>
         </form>
+        @endforeach
     </div>
     <script src="{{ asset('/JS/EditarCliente.js') }}"></script>
 @endsection

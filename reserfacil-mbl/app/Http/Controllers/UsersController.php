@@ -105,6 +105,15 @@ class UsersController extends Controller
         return view('Usuario.crearCliente');
     }
 
+    public function rellenar()
+    {
+        $a = Auth::user()->Id;
+        $b = Auth::user()->isAdmin;
+        Session::put('user', Auth::user()->Id);
+        Session::put('admin', Auth::user()->isAdmin);
+        Session::save();
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -124,7 +133,7 @@ class UsersController extends Controller
                 'nombre' => 'required|max:200',
                 'password' => 'required|max:200',
                 'email' => ['required', 'regex:/^.+@.+$/i', 'unique:users,email'], //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
-                'telefono' => ['required', 'regex:/[0-9]{9}/', 'max:11'],
+                'telefono' => ['required', 'regex:/[0-9]{9}/', 'max:9'],
             ];
             //mensajes que quiero mandar por si existen errores en la parte servidora
             $messages = [
@@ -157,13 +166,22 @@ class UsersController extends Controller
 
             $cliente->save();
             //Esto es lo nuevo
-            event(new Registered($cliente));
+            //    event(new Registered($cliente));
 
             Auth::login($cliente, true);
+            $credentials = [
+                "email" => $request->post('email'),
+                "password" => $request->post('password'),
 
-            Session::put('user', Auth::user()->Id);
-            Session::put('admin', Auth::user()->isAdmin);
-
+            ];
+            if (Auth::attempt($credentials, true)) {
+                $request->session()->regenerate();
+                Session::put('user', Auth::user()->Id);
+                Session::put('admin', Auth::user()->isAdmin);
+                //  $b=Session::get('admin');
+                //  $a=Session::get('user');
+                Session::save();
+            }
             // $cli = new User();
             // $cli->id = 0;
             // $cli->nombre = $request->post('nombre');
@@ -219,7 +237,7 @@ class UsersController extends Controller
                 //  $a=Session::get('user');
                 Session::save();
 
-           
+
                 return redirect()->route("inicio.inicio")->with("success", "Bienvenido de nuevo D.ª " . Auth::user()->nombre); //este es el mensaje que aparece como $mensaje en listar restaurante
 
             }
@@ -267,10 +285,10 @@ class UsersController extends Controller
      */
     public function editCliente(User $User)
     {
-        //$cliente = DB::table('users')->where('Id', '=',  Auth::user()->Id)->get();
+        $cliente = DB::table('users')->where('Id', '=',  Session::get('user'))->get();
 
         //return view('editarCliente', compact('cliente'));
-        return view('Usuario.editarCliente');
+        return view('Usuario.editarCliente', compact('cliente'));
     }
 
     /**
@@ -293,7 +311,7 @@ class UsersController extends Controller
             $rules = [
                 'nombre' => 'required|max:200',
                 'email' => 'required|regex:/^.+@.+$/i', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
-                'telefono' => 'required|regex:/[0-9]{9}/|max:11',
+                'telefono' => 'required|regex:/[0-9]{9}/|max:9',
             ];
             //mensajes que quiero mandar por si existen errores en la parte servidora
             $messages = [
@@ -303,7 +321,7 @@ class UsersController extends Controller
                 'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
                 'telefono.required' => 'El telefono no puede estar en blanco',
                 'telefono.regex' => 'El telefono debe escribirse con los digitos juntos asi: XXXXXXXXX',
-                'telefono.max' => 'El telefono debe No debe exceder los 12 caracteres',
+                'telefono.max' => 'El telefono debe No debe exceder los 9 caracteres',
             ];
             //metodo que necesita de estos 3 argumentos para realizar la validacion
             $this->validate($request, $rules, $messages);

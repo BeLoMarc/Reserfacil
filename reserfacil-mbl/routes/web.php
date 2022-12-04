@@ -29,7 +29,6 @@ use Illuminate\Http\Request;
 
 Route::get('/',[controladorPIni::class, 'Cargardatos'])->name('inicio.inicio');
 
-
 Route::post('/', [controladorPIni::class, 'Filtro'])->name('inicio.filtrado');
 //localhost:8000/prueba
 
