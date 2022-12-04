@@ -26,7 +26,8 @@ class controladorPIni extends Controller
         $localidades = DB::table('localidad')->orderBy('nombre')->get();
         $categoriasRestaurante = DB::table('restaurante_categorias')->get();
         $localidadesRestaurante =  DB::table('restaurante_localidad')->get();;
-        return view('index', compact('restaurantes', 'restauranteUnico', 'categorias', 'localidades', 'categoriasRestaurante', 'localidadesRestaurante'));
+        //return view('index', compact('restaurantes', 'restauranteUnico', 'categorias', 'localidades', 'categoriasRestaurante', 'localidadesRestaurante'));
+        return view('index', ['restaurantes'=>$restaurantes, 'restauranteUnico'=>$restauranteUnico, 'categorias'=>$categorias, 'localidades'=>$localidades, 'categoriasRestaurante'=>$categoriasRestaurante, 'localidadesRestaurante'=>$localidadesRestaurante]);
     }
     public function filtracion($r)
     {

@@ -79,7 +79,7 @@
                 <div class="main__book__description__title">
                     <div class="main__book__description__title__box">
                         <span class="main__book__description__title__box__name lang"
-                            key="Curse">{{ $restaurante->nombre }}</span>
+                            >{{ $restaurante->nombre }}</span>
                         <div class="main__book__description__title__box__underline"></div>
                     </div>
                 </div>
