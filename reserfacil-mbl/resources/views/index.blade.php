@@ -2,14 +2,7 @@
 @extends('plantilla/plantilla')
 
 
-{{--  
-    <div class="col-sm-12">
-        @auth
-            <h1>{{ Auth::user()->nombre }}</h1>
-            {{ Auth::user()->getRoleNames() }}
-        @endauth
-    </div> 
-</div>   --}}
+
 @section('formulario')
     <div class="row">
         <div class="col-sm-12">
