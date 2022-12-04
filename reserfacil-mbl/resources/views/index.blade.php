@@ -6,14 +6,14 @@
 @section('formulario')
     <div class="row">
         <div class="col-sm-12">
-            @if ($mensaje = Session::get('success'))
+            @if ($mensa = Session::get('success'))
                 <div class="alert alert-success" role="alert">
-                    {{ $mensaje }}
+                    {{ $mensa }}
                 </div>
             @endif
-            @if ($mensaje = Session::get('fail'))
+            @if ($mensa = Session::get('fail'))
                 <div class="alert alert-warning" role="alert">
-                    {{ $mensaje }}
+                    {{ $mensa }}
                 </div>
             @endif
         </div>
