@@ -6,12 +6,14 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use PhpParser\Node\Stmt\TryCatch;
 use App\Exceptions\Handler;
 use Throwable;
+use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
@@ -121,8 +123,8 @@ class UsersController extends Controller
             $rules = [
                 'nombre' => 'required|max:200',
                 'password' => 'required|max:200',
-                'email' => 'required|regex:/^.+@.+$/i|unique:users,email', //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
-                'telefono' => 'required|regex:/[0-9]{9}/|max:11',
+                'email' => ['required', 'regex:/^.+@.+$/i', 'unique:users,email'], //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
+                'telefono' => ['required', 'regex:/[0-9]{9}/', 'max:11'],
             ];
             //mensajes que quiero mandar por si existen errores en la parte servidora
             $messages = [
@@ -140,7 +142,7 @@ class UsersController extends Controller
             $this->validate($request, $rules, $messages);
 
 
-
+            $request->post('nombre');
 
 
             //mas facil para asignar roles
@@ -155,7 +157,7 @@ class UsersController extends Controller
 
             $cliente->save();
             //Esto es lo nuevo
-          //  event(new Registered($cliente));
+            event(new Registered($cliente));
 
             Auth::login($cliente, true);
             // $cli = new User();
@@ -177,12 +179,9 @@ class UsersController extends Controller
         return view('Usuario.formularioLogginCliente');
     }
 
-    public function autenticarCliente(Request $request)
+    public function autenticarCliente(LoginRequest $request)
     {
-        //        $request->validate([
-        //          'email' => 'required',
-        //        'password' => 'required',
-        //  ]);
+
         try {
             //Reglas de validacion
             $rules = [
@@ -208,16 +207,11 @@ class UsersController extends Controller
 
             if (Auth::attempt($credentials, true)) {
 
-              //  Auth::guard('web')->logout();
 
-                //$request->session()->invalidate();
-        
-                //$request->session()->regenerateToken();
-        
-                
-                 $request->session()->regenerate();
-                //   Session::put('user', Auth::user()->getRememberToken());
-                //   Session::save();
+                $request->authenticate();
+                $request->session()->regenerate();
+                Session::put('user', Auth::user()->Id);
+                Session::save();
 
                 return redirect()->route("inicio.inicio")->with("success", "Bienvenido de nuevo D.ª " . Auth::user()->nombre); //este es el mensaje que aparece como $mensaje en listar restaurante
 
@@ -233,9 +227,10 @@ class UsersController extends Controller
 
     public function logOut(Request $request)
     {
-        //Auth::logout();
-        //Session::forget('user');
+        Auth::logout();
 
+        Session::forget('user');
+       
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

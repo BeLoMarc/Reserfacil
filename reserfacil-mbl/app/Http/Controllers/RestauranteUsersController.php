@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Throwable;
+use Illuminate\Support\Facades\Session;
 
 class RestauranteUsersController extends Controller
 {
@@ -17,9 +18,22 @@ class RestauranteUsersController extends Controller
      */
     public function index()
     {   //me saca el usuario loggeado para recoger su nombre
-        $usuario = DB::table('users')->where('Id', '=', Auth::user()->Id)->get();
-        $reservas = restaurante_users::all(); //Esta query es para que me saque todas las reservas,
+        try {
+            $id = Auth::user()->Id;
+        } catch (Throwable $e) {
+            $id = Session::get('user');
+        }
+
+        $usuario = DB::table('users')
+            ->Where('Id', '=', $id)
+            ->get();
+        // $reservas = restaurante_users::all(); Esta query es para que me saque todas las reservas,
         // pero en el nombre del cliente pone el mismo porque coge el que esta actualmente loggeado
+        $reservas = DB::table('restaurante_users')->where('Id', '=', $id)->get(); //esto me da las reservas del cliente autenticado
+        foreach ($reservas as $re) {
+            return view('Reserva.listarReservas', compact('reservas', 'usuario'));
+        }
+        return redirect()->route("inicio.inicio")->with("fail", "No tienes ninguna Reserva a tu nombre"); //este es el mensaje que aparece como $mensaje 
 
         //Esto esta hecho al recoger la sesion a mano
         // if (Session::get('user') !== null) {
@@ -30,7 +44,7 @@ class RestauranteUsersController extends Controller
 
 
 
-        return view('Reserva.listarReservas', compact('reservas', 'usuario'));
+
     }
 
     /**
@@ -81,8 +95,12 @@ class RestauranteUsersController extends Controller
             $res = new restaurante_users();
             $res->codigoRes = $codigoRes; //Codigo del restaurante
             //$res->nombreRes = $nombreRes; Nombre del restaurante en la vista mostrarInfo
+            try {
+                $res->Id = Auth::user()->Id; //codigo del cliente
+            } catch (Throwable $e) {
+                $res->Id = Session::get('user'); //codigo del cliente
+            }
 
-            $res->Id = Auth::user()->Id; //codigo del cliente
             $res->fecha = $request->post('fecha'); //fecha
             //parseamos la hora a varchar
             //  $horaBien = date('h:i A', strtotime($request->post('hora'))); //hora
@@ -106,11 +124,18 @@ class RestauranteUsersController extends Controller
      */
     public function show(restaurante_users $restaurante_users, $codres, $fecha)
     {
+        try {
+            $id = Auth::user()->Id;
+        } catch (Throwable $e) {
+            $id = Session::get('user');
+        }
         $reservas = DB::table('restaurante_users')
             ->where('codigoRes', '=', $codres)
             ->where('fecha', '=', $fecha)
-            ->where('Id', '=', Auth::user()->Id) //otra opcion es pasar por parametro la Id
+            ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
             ->get();
+
+
         return view('Reserva.borrarReserva', compact('reservas'));
     }
 
@@ -122,14 +147,26 @@ class RestauranteUsersController extends Controller
      */
     public function edit($codres, $fecha, $hora)
     {
+        try {
 
-        $reservas = DB::table('restaurante_users')
-            ->where('codigoRes', '=', $codres)
-            ->where('fecha', '=', $fecha)
-            ->where('hora', '=', $hora)
-            ->where('Id', '=', Auth::user()->Id) //otra opcion es pasar por parametro la Id
-            ->get();
-        return view('Reserva.editarReserva', compact('reservas'));
+
+            try {
+                $id = Auth::user()->Id;
+            } catch (Throwable $e) {
+                $id = Session::get('user');
+            }
+            $reservas = DB::table('restaurante_users')
+                ->where('codigoRes', '=', $codres)
+                ->where('fecha', '=', $fecha)
+                ->where('hora', '=', $hora)
+                ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
+                ->get();
+
+
+            return view('Reserva.editarReserva', compact('reservas'));
+        } catch (Throwable $e) {
+            return view('inicio.inicio')->with("fail", "Debes iniciar sesion para poder editar el perfil");
+        }
     }
 
     /**
@@ -166,13 +203,17 @@ class RestauranteUsersController extends Controller
             //metodo que necesita de estos 3 argumentos para realizar la validacion
             $this->validate($request, $rules, $messages);
 
-
+            try {
+                $id = Auth::user()->Id;
+            } catch (Throwable $e) {
+                $id = Session::get('user');
+            }
 
             DB::table('restaurante_users')
                 ->where('codigoRes', '=', $codres)
                 ->where('fecha', '=', $fecha)
                 ->where('hora', '=', $hora)
-                ->where('Id', '=', Auth::user()->Id) //otra opcion es pasar por parametro la Id
+                ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
                 ->update([
                     'fecha' => $request->post('fecha'),
                     'hora' => $request->post('hora'),
@@ -183,11 +224,17 @@ class RestauranteUsersController extends Controller
             return redirect()->route("reserva.index")->with("success", "Actualizado con exito"); //este es el mensaje que aparece como $mensaje en listar restaurante
 
         } catch (Throwable $e) {
+            try {
+                $id = Auth::user()->Id;
+            } catch (Throwable $e) {
+                $id = Session::get('user');
+            }
+
             $reservas = DB::table('restaurante_users')
                 ->where('codigoRes', '=', $codres)
                 ->where('fecha', '=', $fecha)
                 ->where('hora', '=', $hora)
-                ->where('Id', '=', Auth::user()->Id) //otra opcion es pasar por parametro la Id
+                ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
                 ->get();
             return view('Reserva.editarReserva', compact('reservas'))->with("fail", "No puede realizar mas de una reserva para el mismo dia y la misma hora");
         }
@@ -201,11 +248,16 @@ class RestauranteUsersController extends Controller
      */
     public function destroy($codres, $fecha, $hora)
     {
+        try {
+            $id = Auth::user()->Id;
+        } catch (Throwable $e) {
+            $id = Session::get('user');
+        }
         DB::table('restaurante_users')
             ->where('codigoRes', '=', $codres)
             ->where('fecha', '=', $fecha)
             ->where('hora', '=', $hora)
-            ->where('Id', '=', Auth::user()->Id) //otra opcion es pasar por parametro la Id
+            ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
             ->delete();
         return redirect()->route("inicio.inicio")->with("success", "Reserva cancelada con exito"); //este es el mensaje que aparece como $mensaje 
     }

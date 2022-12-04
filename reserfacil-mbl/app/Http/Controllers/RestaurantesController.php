@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Session;
+use Throwable;
 class RestaurantesController extends Controller
 {
     /**
@@ -17,9 +18,18 @@ class RestaurantesController extends Controller
      */
     public function index()
     {
-        //$restaurantes = DB::table('restaurantes')->where('Id', '=', Auth::user()->Id)->get();
-        $restaurantes = restaurantes::all();
-        return view('Restaurante.listarRestaurante', compact('restaurantes'));
+        try {
+            $id = Auth::user()->Id;
+        } catch (Throwable $e) {
+            $id = Session::get('user');
+        }
+        $restaurantes = DB::table('restaurantes')->where('Id', '=',$id)->get();
+        //$restaurantes = restaurantes::all();
+        foreach ($restaurantes as $re) {
+            return view('Restaurante.listarRestaurante', compact('restaurantes'));
+        }
+        return redirect()->route("inicio.inicio")->with("fail", "No tienes ningun Restaurante que administrar, crea uno primero"); //este es el mensaje que aparece como $mensaje 
+        
     }
 
     /**
@@ -79,7 +89,12 @@ class RestaurantesController extends Controller
 
 
         $res = new restaurantes();
-        $res->Id =  Auth::user()->Id; //Codigo del gerente
+        try{
+             $res->Id =  Auth::user()->Id; //Codigo del gerente
+        }catch(throwable $e){
+            $res->Id=Session::get('user');
+        }
+       
         $res->nombre = $request->post('nombre'); //nombre del restaurante
 
         if ($request->hasFile("carta")) {
@@ -117,8 +132,14 @@ class RestaurantesController extends Controller
         $res->telefono = $request->post('telefono'); //numero de telefono del restaurante
 
         $res->save(); //este metodo lo guarda
+        try {
+            $id = Auth::user()->Id;
+        } catch (Throwable $e) {
+            $id = Session::get('user');
+        }
+        
         $cr = DB::table('restaurantes')->select('codigoRestaurante') // aqui busco el codigo del restaurante que acabo de crear
-            ->where('Id', '=', Auth::user()->Id)->orderByDesc('codigoRestaurante')->first();
+            ->where('Id', '=', $id)->orderByDesc('codigoRestaurante')->first();
 
 
         $var = $request->post('cats');
