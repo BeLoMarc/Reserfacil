@@ -16,7 +16,7 @@
             @csrf
             <!--<div class="mb-3"> SI SE PONE COMO DISABLED NO RECOGE EL VALOR PERO SI LO MUESTRA
                                                                                                                             <label for="codigoGer" class="form-label">Codigo Gerente, ELIMINAR MAS TARDE, DEBE IR SINCRONIZADO:</label>
-                                                                                                                            <input type="text" class="form-control" id="" value="{{ Auth::user()->Id }}" name="codigoGer" >
+                                                                                                                            <input type="text" class="form-control" id="" value="" name="codigoGer" >
                                                                                                                         </div>-->
             <div class="form__info">
                 <label for="carta" class="form__info__label">Imagen de la Carta:</label>

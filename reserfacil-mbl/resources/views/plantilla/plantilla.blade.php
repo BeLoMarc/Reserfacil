@@ -48,56 +48,70 @@
                 <img class="nav__index__img" src="../Multimedia/logo1.png" alt="logo" />
             </a>
         </div>
+        @if (!Session::get('user'))
+            <div class="nav__category">
+                <a href="{{ route('cliente.logginRegistroCliente') }}" class="nav__category__link">
+                    <span class="nav__category__link__span lang"> Iniciar Sesion
+                    </span></a>
+            </div>
+        @endif
 
-        <div class="nav__category">
-            <a href="{{ route('cliente.logginRegistroCliente') }}" class="nav__category__link">
-                <span class="nav__category__link__span lang" key="QuienesSomos"> Iniciar Sesion
-                </span></a>
-        </div>
-        
-        <div class="nav__category">
-            <a href="{{ route('cliente.logOut') }}" class="nav__category__link"><span
-                    class="nav__category__link__span lang" key="Clases">
-                    Cerrar Sesion</span></a>
-        </div>
-        
-        <div class="nav__category">
-            <a href="{{ route('cliente.create') }}" class="nav__category__link"><span
-                    class="nav__category__link__span lang" key="Clases">
-                    Registrar Cliente</span></a>
-        </div>
-        <div class="nav__category">
-            <a href="{{ route('cliente.edit') }}" class="nav__category__link"><span
-                    class="nav__category__link__span lang" key="Clases">
-                    Editar Perfil</span></a>
-        </div>
-        <div class="nav__category">
-            <a href="{{ route('reserva.index') }}" class="nav__category__link">
-                <span class="nav__category__link__span">
-                    Mostrar Reservas </span>
-            </a>
-        </div>
-        
+
+        @if (Session::get('user'))
+            <div class="nav__category">
+                <a href="{{ route('cliente.logOut') }}" class="nav__category__link"><span
+                        class="nav__category__link__span lang">
+                        Cerrar Sesion</span></a>
+            </div>
+        @endif
+
+
+        @if (Session::get('admin') === 0)
+            <div class="nav__category">
+                <a href="{{ route('cliente.edit') }}" class="nav__category__link"><span
+                        class="nav__category__link__span lang" key="Clases">
+                        Editar Perfil</span></a>
+            </div>
+        @endif
+        @if (Session::get('admin') === 0)
+            <div class="nav__category">
+                <a href="{{ route('reserva.index') }}" class="nav__category__link">
+                    <span class="nav__category__link__span">
+                        Mostrar Reservas </span>
+                </a>
+            </div>
+        @endif
+        @if (!Session::get('user'))
+            <div class="nav__category">
+                <a href="{{ route('cliente.create') }}" class="nav__category__link"><span
+                        class="nav__category__link__span lang" key="Clases">
+                        Registrar Cliente</span></a>
+            </div>
+        @endif
+
         {{-- <div class="nav__category">
             <a class="nav__category__link">
                 <span class="nav__category__link__span">
                     Iniciar sesion gerente (F)</span>
             </a>
         </div>
---}}
-        <div class="nav__category">
-            <a href="{{ route('restaurante.create') }}" class="nav__category__link">
-                <span class="nav__category__link__span">
-                    Crear Restaurante</span>
-            </a>
-        </div>
-
-        <div class="nav__category">
-            <a href="{{ route('restaurante.index') }}" class="nav__category__link">
-                <span class="nav__category__link__span">
-                    Mostrar Restaurantes</span>
-            </a>
-        </div>
+        --}}
+        @if (Session::get('admin') === 1)
+            <div class="nav__category">
+                <a href="{{ route('restaurante.create') }}" class="nav__category__link">
+                    <span class="nav__category__link__span">
+                        Crear Restaurante</span>
+                </a>
+            </div>
+        @endif
+        @if (Session::get('admin') === 1)
+            <div class="nav__category">
+                <a href="{{ route('restaurante.index') }}" class="nav__category__link">
+                    <span class="nav__category__link__span">
+                        Mostrar Restaurantes</span>
+                </a>
+            </div>
+        @endif
     </nav>
 
     {{-- <div class=buscador>
@@ -128,6 +142,7 @@
     </div>
    --}}
     <main class="main" id="main">
+
         @yield('formulario')
 
         @yield('restaurantes')
@@ -211,8 +226,9 @@
                 </a>
             </figure>
             <div class="aside__event__description">
-                <time class="aside__event__description__time" >RANKING</time>
-                <span class="aside__event__description__text lang" > El restaurante más Visitado esta semana es CociFacil</span>
+                <time class="aside__event__description__time">RANKING</time>
+                <span class="aside__event__description__text lang"> El restaurante más Visitado esta semana es
+                    CociFacil</span>
             </div>
         </div>
 
@@ -224,8 +240,9 @@
                 </a>
             </figure>
             <div class="aside__event__description">
-                <time class="aside__event__description__time" >OFERTAS</time>
-                <span class="aside__event__description__text  lang" key="Faerun">No te olvides de usar nuestro codigo de descuento en reservas ReserFacil00</span>
+                <time class="aside__event__description__time">OFERTAS</time>
+                <span class="aside__event__description__text  lang" key="Faerun">No te olvides de usar nuestro
+                    codigo de descuento en reservas ReserFacil00</span>
             </div>
         </div>
         <div class="aside__event">
@@ -236,11 +253,12 @@
             </figure>
             <div class="aside__event__description">
                 <time class="aside__event__description__time">GUSTOS</time>
-                <span class="aside__event__description__text  lang" >Porque te gustan estos restaurantes te recomendamos...</span>
+                <span class="aside__event__description__text  lang">Porque te gustan estos restaurantes te
+                    recomendamos...</span>
 
             </div>
         </div>
-        
+
 
     </aside>
     <footer class="footer">

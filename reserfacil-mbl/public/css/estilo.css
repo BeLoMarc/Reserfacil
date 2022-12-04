@@ -87,8 +87,8 @@ tr{
       rgba(20, 4, 4, 1) 5%,
       rgba(157, 29, 36, 1) 100%);
     display: flex;
+    flex-wrap: wrap;
     background: linear-gradient(
-     
       90deg,
       rgba(20, 4, 4, 1) 5%,
       rgba(157, 29, 36, 1) 100%);
@@ -176,19 +176,7 @@ tr{
     background-color: #00000083;
     border-bottom-right-radius: 20px;
   }
-  /* .buscador{
-    align-content: start;
-    /** background-color: var(--ctl-bgdiv);
-    border-radius: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    justify-self: auto;
-    max-width: 1200px;
-    margin: 10px 5px 10px 10px;
-    padding: 20px 10px;
-    /* height: calc(100px + 30vw); 
-  } */
+  
   .main {
     align-content: start;
     /** background-color: var(--ctl-bgdiv);*/
@@ -560,7 +548,7 @@ tr{
       2em 2em 3em rgb(243, 204, 98);
     color: var(--ctl-fgren);
     grid-area: form;
-    max-width: 600px;
+    max-width: 100%;
     margin: 20px auto 50px;
     padding: 30px;
     width: 80%;

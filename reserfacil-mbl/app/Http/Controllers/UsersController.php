@@ -160,6 +160,10 @@ class UsersController extends Controller
             event(new Registered($cliente));
 
             Auth::login($cliente, true);
+
+            Session::put('user', Auth::user()->Id);
+            Session::put('admin', Auth::user()->isAdmin);
+
             // $cli = new User();
             // $cli->id = 0;
             // $cli->nombre = $request->post('nombre');
@@ -204,15 +208,18 @@ class UsersController extends Controller
                 "password" => $request->password,
 
             ];
-
             if (Auth::attempt($credentials, true)) {
 
 
                 $request->authenticate();
                 $request->session()->regenerate();
                 Session::put('user', Auth::user()->Id);
+                Session::put('admin', Auth::user()->isAdmin);
+                //  $b=Session::get('admin');
+                //  $a=Session::get('user');
                 Session::save();
 
+           
                 return redirect()->route("inicio.inicio")->with("success", "Bienvenido de nuevo D.ª " . Auth::user()->nombre); //este es el mensaje que aparece como $mensaje en listar restaurante
 
             }
@@ -230,7 +237,9 @@ class UsersController extends Controller
         Auth::logout();
 
         Session::forget('user');
-       
+
+        Session::forget('admin');
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
