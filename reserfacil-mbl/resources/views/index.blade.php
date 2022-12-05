@@ -26,12 +26,13 @@
                 <legend>Elija su restaurante perfecto</legend>
                 <div class="form__info">
                     <label for="Select" class="form__info__label">Restaurante donde quieres comer:</label>
-                    <select name="restauranteSelect" id="Select" class="form__controls" >
+                    <select name="restauranteSelect" id="Select" class="form__controls">
                         <!-- Restaurante unico es un array de restaurantes donde estan ordenador por nombre y este no se repite -->
                         <option value="v">Cualquier Restaurante</option>
-                        @foreach ($restauranteUnico as $restaurante)
+                        @forelse ($restauranteUnico as $restaurante)
                             <option value="{{ $restaurante->nombre }}">{{ $restaurante->nombre }}</option>
-                        @endforeach
+                        @empty
+                        @endforelse
 
                     </select>
                 </div>
@@ -41,9 +42,10 @@
                     <label for="Select" class="form__info__label">Localidad donde quiere comer:</label>
                     <select name="localidadSelect" id="Select" class="form__controls">
                         <option value="v">Cualquier localidad</option>
-                        @foreach ($localidades as $localidad)
+                        @forelse ($localidades as $localidad)
                             <option value="{{ $localidad->codigoLocalidad }}">{{ $localidad->nombre }}</option>
-                        @endforeach
+                        @empty
+                        @endforelse
                     </select>
                 </div>
 
@@ -52,9 +54,10 @@
                     <label for="Select" class="form__info__label">Tipo de comida del restaurante:</label>
                     <select name="categoriaSelect" id="Select" class="form__controls">
                         <option value="v">Cualquier categoria</option>
-                        @foreach ($categorias as $categoria)
+                        @forelse ($categorias as $categoria)
                             <option value="{{ $categoria->codigoCategoria }}">{{ $categoria->nombre }}</option>
-                        @endforeach
+                        @empty
+                        @endforelse
                     </select>
                 </div>
                 <div class="form__info half">
@@ -66,43 +69,47 @@
     </div>
 @endsection
 @section('restaurantes')
-    @foreach ($restaurantes as $restaurante)
+    @forelse ($restaurantes as $restaurante)
         <div class="main__book">
-           @if (Session::get('admin')===0)
-           <a class="main__book__link"
-           href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>   
-           @endif
+            @if (Session::get('admin') === 0)
+                <a class="main__book__link"
+                    href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>
+            @endif
             <figure class="main__book__cover">
                 <img alt="" src="../Multimedia/fotosRestaurante/{{ $restaurante->foto }}" />
             </figure>
             <div class="main__book__description">
                 <div class="main__book__description__title">
                     <div class="main__book__description__title__box">
-                        <span class="main__book__description__title__box__name lang"
-                            >{{ $restaurante->nombre }}</span>
+                        <span class="main__book__description__title__box__name lang">{{ $restaurante->nombre }}</span>
                         <div class="main__book__description__title__box__underline"></div>
                     </div>
                 </div>
                 <div class="main__book__description__tags">
-                    @foreach ($categoriasRestaurante as $cr)
+                    @forelse ($categoriasRestaurante as $cr)
                         @if ($cr->codigoRes == $restaurante->codigoRestaurante)
-                            @foreach ($categorias as $cat)
+                            @forelse ($categorias as $cat)
                                 @if ($cr->codigoCat == $cat->codigoCategoria)
                                     <a class="main__book__description__tags__link lang"
                                         href="">{{ $cat->nombre }}</a>
                                 @endif
-                            @endforeach
+                            @empty
+                            @endforelse
                         @endif
-                    @endforeach
-                    @foreach ($localidadesRestaurante as $lc)
+                    @empty
+                    @endforelse
+                    @forelse ($localidadesRestaurante as $lc)
                         @if ($lc->codigoRes == $restaurante->codigoRestaurante)
-                            @foreach ($localidades as $loc)
+                            @forelse ($localidades as $loc)
                                 @if ($lc->codigoLoc == $loc->codigoLocalidad)
-                                <a class="main__book__description__tags__link sketchy" href="">{{ $loc->nombre }}</a>
+                                    <a class="main__book__description__tags__link sketchy"
+                                        href="">{{ $loc->nombre }}</a>
                                 @endif
-                            @endforeach
+                            @empty
+                            @endforelse
                         @endif
-                    @endforeach
+                    @empty
+                    @endforelse
                 </div>
                 <div class="main__book__description__author">
                     <p class="main__book__description__author__label lang" key="Autor">Telefono:</p>
@@ -116,5 +123,6 @@
                 </div>
             </div>
         </div>
-    @endforeach
+    @empty
+    @endforelse
 @endsection

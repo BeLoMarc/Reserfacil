@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\restaurante;
+
 use App\Models\restaurantes;
 use Illuminate\Http\Request;
 use Error;
@@ -27,6 +27,7 @@ class controladorPIni extends Controller
         $categoriasRestaurante = DB::table('restaurante_categorias')->get();
         $localidadesRestaurante =  DB::table('restaurante_localidad')->get();;
         //return view('index', compact('restaurantes', 'restauranteUnico', 'categorias', 'localidades', 'categoriasRestaurante', 'localidadesRestaurante'));
+     
         return view('index', ['restaurantes'=>$restaurantes, 'restauranteUnico'=>$restauranteUnico, 'categorias'=>$categorias, 'localidades'=>$localidades, 'categoriasRestaurante'=>$categoriasRestaurante, 'localidadesRestaurante'=>$localidadesRestaurante]);
     }
     public function filtracion($r)

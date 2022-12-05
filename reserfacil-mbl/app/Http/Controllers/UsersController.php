@@ -132,7 +132,7 @@ class UsersController extends Controller
             $rules = [
                 'nombre' => 'required|max:200',
                 'password' => 'required|max:200',
-                'email' => ['required', 'regex:/^.+@.+$/i', 'unique:users,email'], //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
+                'email' => ['required', 'regex:/^.+@.+$/i', 'unique:users,email'], //es un email requerido, debe pasar por la regex,Debe ser unico en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
                 'telefono' => ['required', 'regex:/[0-9]{9}/', 'max:9'],
             ];
             //mensajes que quiero mandar por si existen errores en la parte servidora
