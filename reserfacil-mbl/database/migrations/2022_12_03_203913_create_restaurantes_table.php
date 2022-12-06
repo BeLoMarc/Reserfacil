@@ -19,9 +19,9 @@ return new class extends Migration
             $table->id('codigoRestaurante');
             $table->unsignedBigInteger('Id');
             $table->string('nombre');
-            $table->binary('carta'); //Equivalente a BLOB
-            $table->binary('foto'); //Equivalente a BLOB
-            $table->binary('banner'); //Equivalente a BLOB
+            $table->string('carta'); //Equivalente a BLOB binary
+            $table->string('foto'); //Equivalente a BLOB
+            $table->string('banner'); //Equivalente a BLOB
             $table->string('direccion'); 
             $table->string('descripcion'); 
             $table->string('telefono', 12); //Equivalente a int

@@ -91,6 +91,7 @@
                     </div>
                 </div>
                 <div class="main__book__description__tags">
+                    
                     @php
                         $path = 'storage/log/laravel.logs';
                         error_log('Antes De fireach1', 3, $path);
