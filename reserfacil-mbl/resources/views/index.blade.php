@@ -92,10 +92,7 @@
                 </div>
                 <div class="main__book__description__tags">
                     
-                    @php
-                        $path = 'storage/log/laravel.logs';
-                        error_log('Antes De fireach1', 3, $path);
-                    @endphp
+                
                     @forelse ($categoriasRestaurante as $cr)
                         @if ($cr->codigoRes == $restaurante->codigoRestaurante)
                             @forelse ($categorias as $cat)
