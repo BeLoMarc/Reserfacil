@@ -50,7 +50,7 @@
         </div>
         @php 
         $path="storage/log/laravel.logs";
-        error_log("Antes DE BOTONES", $path);
+        error_log("Antes DE BOTONES",3, $path);
         @endphp
 
         @if (!Session::get('user'))

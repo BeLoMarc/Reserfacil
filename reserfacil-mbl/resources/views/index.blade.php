@@ -27,7 +27,7 @@
               
                 @php 
                 $path="storage/log/laravel.logs";
-                error_log("Antes De SELECTS", $path);
+                error_log("Antes De SELECTS", 3,$path);
                 @endphp
 
                 <div class="form__info">
@@ -78,7 +78,7 @@
 @section('restaurantes')
 @php 
 $path="storage/log/laravel.logs";
-error_log("Antes De RESTAURANTES", $path);
+error_log("Antes De RESTAURANTES", 3,$path);
 @endphp
     @forelse ($restaurantes as $restaurante)
         <div class="main__book">
