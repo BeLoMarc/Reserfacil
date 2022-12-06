@@ -128,72 +128,73 @@ class UsersController extends Controller
         //     'password' => 'required',
         //     'telefono' => 'required',
         // ]);
-     //   try {
-            $rules = [
-                'nombre' => 'required|max:200',
-                'password' => 'required|max:200',
-                'email' => ['required', 'regex:/^.+@.+$/i', 'unique:users,email'], //es un email requerido, debe pasar por la regex,Debe ser unico en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
-                'telefono' => ['required', 'regex:/[0-9]{9}/', 'max:9'],
-            ];
-            //mensajes que quiero mandar por si existen errores en la parte servidora
-            $messages = [
-                'nombre.required' => 'El nombre no puede estar en blanco',
-                'nombre.max' => 'La longitud del nombre no puede exceder los 200 caracteres',
-                'password.required' => 'la contraseña no puede estar vacia',
-                'password.max' => 'la contraseña no puede exceder los 200 caracteres',
-                'email.required' => 'El email no puede estar en blanco',
-                'email.unique' => 'Ya existe un usuario con ese mismo Email, por favor cambielo',
-                'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
-                'telefono.required' => 'El telefono no puede estar en blanco',
-                'telefono.regex' => 'El telefono debe escribirse con los digitos juntos asi: XXXXXXXXX',
-            ];
-            //metodo que necesita de estos 3 argumentos para realizar la validacion
-            $this->validate($request, $rules, $messages);
+        //   try {
+        $rules = [
+            'nombre' => 'required|max:200',
+            'password' => 'required|max:200',
+            'email' => ['required', 'regex:/^.+@.+$/i', 'unique:users,email'], //es un email requerido, debe pasar por la regex,Debe ser unico en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
+            'telefono' => ['required', 'regex:/[0-9]{9}/', 'max:9'],
+        ];
+        //mensajes que quiero mandar por si existen errores en la parte servidora
+        $messages = [
+            'nombre.required' => 'El nombre no puede estar en blanco',
+            'nombre.max' => 'La longitud del nombre no puede exceder los 200 caracteres',
+            'password.required' => 'la contraseña no puede estar vacia',
+            'password.max' => 'la contraseña no puede exceder los 200 caracteres',
+            'email.required' => 'El email no puede estar en blanco',
+            'email.unique' => 'Ya existe un usuario con ese mismo Email, por favor cambielo',
+            'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
+            'telefono.required' => 'El telefono no puede estar en blanco',
+            'telefono.regex' => 'El telefono debe escribirse con los digitos juntos asi: XXXXXXXXX',
+        ];
+        //metodo que necesita de estos 3 argumentos para realizar la validacion
+        $this->validate($request, $rules, $messages);
 
 
-            $request->post('nombre');
+        $request->post('nombre');
 
+        $users = DB::table('users')->count();
+        $users = $users + 1;
+        //mas facil para asignar roles
+        $cliente = User::create([
+            'id' => $users,
+            'nombre' => $request->post('nombre'),
+            'email' => $request->post('email'),
+            'password' => Hash::make($request->post('password')),
+            'telefono' => $request->post('telefono'),
+        ]);
+        $cliente->assignRole('cliente');
 
-            //mas facil para asignar roles
-            $cliente = User::create([
-                // 'id' => 0,
-                'nombre' => $request->post('nombre'),
-                'email' => $request->post('email'),
-                'password' => Hash::make($request->post('password')),
-                'telefono' => $request->post('telefono'),
-            ]);
-            $cliente->assignRole('cliente');
+        $cliente->save();
+        //Esto es lo nuevo
+        //    event(new Registered($cliente));
 
-            $cliente->save();
-            //Esto es lo nuevo
-            //    event(new Registered($cliente));
+        Auth::login($cliente);
+        $credentials = [
+            "email" => $request->post('email'),
+            "password" => $request->post('password'),
 
-            Auth::login($cliente);
-            $credentials = [
-                "email" => $request->post('email'),
-                "password" => $request->post('password'),
-
-            ];
-            if (Auth::attempt($credentials)) {
-                $request->session()->regenerate();
-                Session::put('user', Auth::user()->Id);
-                Session::put('admin', Auth::user()->isAdmin);
-                //  $b=Session::get('admin');
-                //  $a=Session::get('user');
-                Session::save();
-            }
-            // $cli = new User();
-            // $cli->id = 0;
-            // $cli->nombre = $request->post('nombre');
-            // $cli->email = $request->post('email');
-            // $cli->password = Hash::make($request->post('password'));
-            // $cli->telefono = $request->post('telefono');
-            // $cli->save(); //este metodo lo guarda
-            // Auth::login($cli, true);
-            //return redirect()->route("inicio.inicio")->with("success", $cliente->getRoleNames()); //este mensaje me dice los roles del usuario creado en este caso cliente
-            return redirect()->route("inicio.inicio")->with("success", "Disfruta de nuestra aplicacion D.ª" . Auth::user()->nombre . ", perteneces al grupo " . $cliente->getRoleNames());
+        ];
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            Session::put('user', Auth::user()->Id);
+            Session::put('admin', Auth::user()->isAdmin);
+            //  $b=Session::get('admin');
+            //  $a=Session::get('user');
+            Session::save();
+        }
+        // $cli = new User();
+        // $cli->id = 0;
+        // $cli->nombre = $request->post('nombre');
+        // $cli->email = $request->post('email');
+        // $cli->password = Hash::make($request->post('password'));
+        // $cli->telefono = $request->post('telefono');
+        // $cli->save(); //este metodo lo guarda
+        // Auth::login($cli, true);
+        //return redirect()->route("inicio.inicio")->with("success", $cliente->getRoleNames()); //este mensaje me dice los roles del usuario creado en este caso cliente
+        return redirect()->route("inicio.inicio")->with("success", "Disfruta de nuestra aplicacion D.ª" . Auth::user()->nombre . ", perteneces al grupo " . $cliente->getRoleNames());
         //} catch (Throwable $e) {
-          //  return redirect()->route("inicio.inicio")->with("fail", "El email introducido ya esta en uso. Elija otro");
+        //  return redirect()->route("inicio.inicio")->with("fail", "El email introducido ya esta en uso. Elija otro");
         //}
     }
     public function logginRegistroCliente()
@@ -204,49 +205,49 @@ class UsersController extends Controller
     public function autenticarCliente(LoginRequest $request)
     {
 
-     //   try {
-            //Reglas de validacion  required|regex:/^.+@.+$/i|
-            $rules = [
-                'password' => 'required|max:200',
-                'email' => 'exists:users,email', //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
-            ];
-            //mensajes que quiero mandar por si existen errores en la parte servidora
-            $messages = [
-                'password.required' => 'la contraseña no puede estar vacia',
-                'password.max' => 'la contraseña no puede exceder los 200 caracteres',
-                'email.required' => 'El email no puede estar en blanco',
-                'email.exists' => 'No existe ningun usuario ligado al correo introducido, pruebe otro diferente',
-                'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
-            ];
-            //metodo que necesita de estos 3 argumentos para realizar la validacion            
-            $this->validate($request, $rules, $messages);
+        //   try {
+        //Reglas de validacion  required|regex:/^.+@.+$/i|
+        $rules = [
+            'password' => 'required|max:200',
+            'email' => 'exists:users,email', //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
+        ];
+        //mensajes que quiero mandar por si existen errores en la parte servidora
+        $messages = [
+            'password.required' => 'la contraseña no puede estar vacia',
+            'password.max' => 'la contraseña no puede exceder los 200 caracteres',
+            'email.required' => 'El email no puede estar en blanco',
+            'email.exists' => 'No existe ningun usuario ligado al correo introducido, pruebe otro diferente',
+            'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
+        ];
+        //metodo que necesita de estos 3 argumentos para realizar la validacion            
+        $this->validate($request, $rules, $messages);
 
-            $credentials = [
-                "email" => $request->email,
-                "password" => $request->password,
+        $credentials = [
+            "email" => $request->email,
+            "password" => $request->password,
 
-            ];
-            if (Auth::attempt($credentials)) {
-
-
-                $request->authenticate();
-                $request->session()->regenerate();
-                Session::put('user', Auth::user()->Id);
-                Session::put('admin', Auth::user()->isAdmin);
-                //  $b=Session::get('admin');
-                //  $a=Session::get('user');
-                Session::save();
+        ];
+        if (Auth::attempt($credentials)) {
 
 
-                return redirect()->route("inicio.inicio")->with("success", "Bienvenido de nuevo D.ª " . Auth::user()->nombre); //este es el mensaje que aparece como $mensaje en listar restaurante
+            $request->authenticate();
+            $request->session()->regenerate();
+            Session::put('user', Auth::user()->Id);
+            Session::put('admin', Auth::user()->isAdmin);
+            //  $b=Session::get('admin');
+            //  $a=Session::get('user');
+            Session::save();
 
-            }
-            return redirect()->route("Usuario.formularioLogginCliente")->with("fail", "No ha sido posible iniciar Sesion, correo o contraseña incorrectos");
-            // return back()->withErrors([
-            //    'email' => 'The provided credentials do not match our records.',
-            //])->onlyInput('email');
-       // } catch (Throwable $e) {
-         //   return redirect()->route("inicio.inicio")->with("fail", "No existe ningun email con asociado a un usuario");
+
+            return redirect()->route("inicio.inicio")->with("success", "Bienvenido de nuevo D.ª " . Auth::user()->nombre); //este es el mensaje que aparece como $mensaje en listar restaurante
+
+        }
+        return redirect()->route("Usuario.formularioLogginCliente")->with("fail", "No ha sido posible iniciar Sesion, correo o contraseña incorrectos");
+        // return back()->withErrors([
+        //    'email' => 'The provided credentials do not match our records.',
+        //])->onlyInput('email');
+        // } catch (Throwable $e) {
+        //   return redirect()->route("inicio.inicio")->with("fail", "No existe ningun email con asociado a un usuario");
         //}
     }
 
