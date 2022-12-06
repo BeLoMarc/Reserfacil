@@ -204,18 +204,18 @@ class UsersController extends Controller
     public function autenticarCliente(LoginRequest $request)
     {
 
-        try {
-            //Reglas de validacion
+     //   try {
+            //Reglas de validacion  required|regex:/^.+@.+$/i|
             $rules = [
                 'password' => 'required|max:200',
-                'email' => 'required|regex:/^.+@.+$/i|exists:users,email', //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
+                'email' => 'exists:users,email', //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
             ];
             //mensajes que quiero mandar por si existen errores en la parte servidora
             $messages = [
                 'password.required' => 'la contraseña no puede estar vacia',
                 'password.max' => 'la contraseña no puede exceder los 200 caracteres',
                 'email.required' => 'El email no puede estar en blanco',
-                'email.exist' => 'No existe ningun usuario ligado al correo introducido, pruebe otro diferente',
+                'email.exists' => 'No existe ningun usuario ligado al correo introducido, pruebe otro diferente',
                 'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
             ];
             //metodo que necesita de estos 3 argumentos para realizar la validacion            
@@ -245,9 +245,9 @@ class UsersController extends Controller
             // return back()->withErrors([
             //    'email' => 'The provided credentials do not match our records.',
             //])->onlyInput('email');
-        } catch (Throwable $e) {
-            return redirect()->route("inicio.inicio")->with("fail", "Error en el servidor, pongase en contacto con el administrador");
-        }
+       // } catch (Throwable $e) {
+         //   return redirect()->route("inicio.inicio")->with("fail", "No existe ningun email con asociado a un usuario");
+        //}
     }
 
     public function logOut(Request $request)
