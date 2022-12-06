@@ -25,10 +25,7 @@
             <fieldset>
                 <legend>Elija su restaurante perfecto</legend>
               
-                @php 
-                $path="storage/log/laravel.logs";
-                error_log("Antes De SELECTS", 3,$path);
-                @endphp
+                
 
                 <div class="form__info">
                     <label for="Select" class="form__info__label">Restaurante donde quieres comer:</label>
