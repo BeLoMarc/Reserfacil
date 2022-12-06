@@ -48,11 +48,7 @@
                 <img class="nav__index__img" src="../Multimedia/logo1.png" alt="logo" />
             </a>
         </div>
-        @php 
-        $path="storage/log/laravel.logs";
-        error_log("Antes DE BOTONES",3, $path);
-        @endphp
-
+      
         @if (!Session::get('user'))
             <div class="nav__category">
                 <a href="{{ route('cliente.logginRegistroCliente') }}" class="nav__category__link">

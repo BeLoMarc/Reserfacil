@@ -24,8 +24,8 @@
             @csrf
             <fieldset>
                 <legend>Elija su restaurante perfecto</legend>
-              
-                
+
+
 
                 <div class="form__info">
                     <label for="Select" class="form__info__label">Restaurante donde quieres comer:</label>
@@ -62,7 +62,7 @@
                         @empty
                         @endforelse
                     </select>
-                    
+
                 </div>
                 <div class="form__info half">
                     <input class="form__info__button" type="submit" value="Buscar" />
@@ -73,10 +73,7 @@
     </div>
 @endsection
 @section('restaurantes')
-@php 
-$path="storage/log/laravel.logs";
-error_log("Antes De RESTAURANTES", 3,$path);
-@endphp
+
     @forelse ($restaurantes as $restaurante)
         <div class="main__book">
             @if (Session::get('admin') === 0)
@@ -94,6 +91,10 @@ error_log("Antes De RESTAURANTES", 3,$path);
                     </div>
                 </div>
                 <div class="main__book__description__tags">
+                    @php
+                        $path = 'storage/log/laravel.logs';
+                        error_log('Antes De fireach1', 3, $path);
+                    @endphp
                     @forelse ($categoriasRestaurante as $cr)
                         @if ($cr->codigoRes == $restaurante->codigoRestaurante)
                             @forelse ($categorias as $cat)
@@ -110,7 +111,6 @@ error_log("Antes De RESTAURANTES", 3,$path);
                         @if ($lc->codigoRes == $restaurante->codigoRestaurante)
                             @forelse ($localidades as $loc)
                                 @if ($lc->codigoLoc == $loc->codigoLocalidad)
-                             
                                     <a class="main__book__description__tags__link sketchy"
                                         href="">{{ $loc->nombre }}</a>
                                 @endif
