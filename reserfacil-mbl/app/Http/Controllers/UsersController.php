@@ -128,7 +128,7 @@ class UsersController extends Controller
         //     'password' => 'required',
         //     'telefono' => 'required',
         // ]);
-        try {
+     //   try {
             $rules = [
                 'nombre' => 'required|max:200',
                 'password' => 'required|max:200',
@@ -168,13 +168,13 @@ class UsersController extends Controller
             //Esto es lo nuevo
             //    event(new Registered($cliente));
 
-            Auth::login($cliente, true);
+            Auth::login($cliente);
             $credentials = [
                 "email" => $request->post('email'),
                 "password" => $request->post('password'),
 
             ];
-            if (Auth::attempt($credentials, true)) {
+            if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
                 Session::put('user', Auth::user()->Id);
                 Session::put('admin', Auth::user()->isAdmin);
@@ -192,9 +192,9 @@ class UsersController extends Controller
             // Auth::login($cli, true);
             //return redirect()->route("inicio.inicio")->with("success", $cliente->getRoleNames()); //este mensaje me dice los roles del usuario creado en este caso cliente
             return redirect()->route("inicio.inicio")->with("success", "Disfruta de nuestra aplicacion D.ª" . Auth::user()->nombre . ", perteneces al grupo " . $cliente->getRoleNames());
-        } catch (Throwable $e) {
-            return redirect()->route("inicio.inicio")->with("fail", "El email introducido ya esta en uso. Elija otro");
-        }
+        //} catch (Throwable $e) {
+          //  return redirect()->route("inicio.inicio")->with("fail", "El email introducido ya esta en uso. Elija otro");
+        //}
     }
     public function logginRegistroCliente()
     {
@@ -226,7 +226,7 @@ class UsersController extends Controller
                 "password" => $request->password,
 
             ];
-            if (Auth::attempt($credentials, true)) {
+            if (Auth::attempt($credentials)) {
 
 
                 $request->authenticate();
