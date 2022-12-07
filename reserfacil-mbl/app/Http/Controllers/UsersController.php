@@ -149,7 +149,7 @@ class UsersController extends Controller
         $users = $users + 1;
         //mas facil para asignar roles
         $cliente = User::create([
-            'Id' => $users,
+            'id' => $users,
             'nombre' => $request->post('nombre'),
             'email' => $request->post('email'),
             'password' => Hash::make($request->post('password')),
