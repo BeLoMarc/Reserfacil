@@ -105,14 +105,6 @@ class UsersController extends Controller
         return view('Usuario.crearCliente');
     }
 
-    public function rellenar()
-    {
-        $a = Auth::user()->id;
-        $b = Auth::user()->isAdmin;
-        Session::put('user', Auth::user()->id);
-        Session::put('admin', Auth::user()->isAdmin);
-        Session::save();
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -157,7 +149,7 @@ class UsersController extends Controller
         $users = $users + 1;
         //mas facil para asignar roles
         $cliente = User::create([
-            'id' => $users,
+            'Id' => $users,
             'nombre' => $request->post('nombre'),
             'email' => $request->post('email'),
             'password' => Hash::make($request->post('password')),
