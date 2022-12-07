@@ -17,7 +17,7 @@ return new class extends Migration
              // $table->id();
             //poner codigo gerente
             $table->id('codigoRestaurante');
-            $table->unsignedBigInteger('Id');
+            $table->unsignedBigInteger('id');
             $table->string('nombre');
             $table->string('carta'); //Equivalente a BLOB binary
             $table->string('foto'); //Equivalente a BLOB
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('direccion'); 
             $table->string('descripcion'); 
             $table->string('telefono', 12); //Equivalente a int
-             $table->foreign('Id')->references('id')->on('users');
+             $table->foreign('id')->references('id')->on('users');
 
             $table->timestamps();
             //$table->primary('codigoRestaurante');

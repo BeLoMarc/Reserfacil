@@ -15,15 +15,15 @@ return new class extends Migration
     {
         Schema::create('restaurante_users', function (Blueprint $table) {
             $table->unsignedBigInteger('codigoRes');
-            $table->unsignedBigInteger('Id');
+            $table->unsignedBigInteger('id');
             $table->date('fecha');
             //https://stackoverflow.com/questions/36171186/how-to-insert-the-value-entered-in-input-type-time-into-database
             $table->string('hora');//$variableConversionInsertar = date('h:i A', strtotime($variableRecogidaInputTime));
             $table->integer('personas');
             $table->string('nombreRestaurante');
-            $table->primary(array('codigoRes', 'Id','fecha','hora'));//ultimo cambio añadir hora
+            $table->primary(array('codigoRes', 'id','fecha','hora'));//ultimo cambio añadir hora
             $table->foreign('codigoRes')->references('codigoRestaurante')->on('restaurantes');
-            $table->foreign('Id')->references('id')->on('users');
+            $table->foreign('id')->references('id')->on('users');
 
             $table->timestamps();
         });

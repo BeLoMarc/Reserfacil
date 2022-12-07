@@ -29,7 +29,7 @@ class RestauranteUsersController extends Controller
             ->get();
         // $reservas = restaurante_users::all(); Esta query es para que me saque todas las reservas,
         // pero en el nombre del cliente pone el mismo porque coge el que esta actualmente loggeado
-        $reservas = DB::table('restaurante_users')->where('Id', '=', $id)->get(); //esto me da las reservas del cliente autenticado
+        $reservas = DB::table('restaurante_users')->where('id', '=', $id)->get(); //esto me da las reservas del cliente autenticado
         foreach ($reservas as $re) {
             return view('Reserva.listarReservas', compact('reservas', 'usuario'));
         }
@@ -96,9 +96,9 @@ class RestauranteUsersController extends Controller
             $res->codigoRes = $codigoRes; //Codigo del restaurante
             //$res->nombreRes = $nombreRes; Nombre del restaurante en la vista mostrarInfo
             try {
-                $res->Id = Auth::user()->id; //codigo del cliente
+                $res->id = Auth::user()->id; //codigo del cliente
             } catch (Throwable $e) {
-                $res->Id = Session::get('user'); //codigo del cliente
+                $res->id = Session::get('user'); //codigo del cliente
             }
 
             $res->fecha = $request->post('fecha'); //fecha
@@ -130,7 +130,7 @@ class RestauranteUsersController extends Controller
         $reservas = DB::table('restaurante_users')
             ->where('codigoRes', '=', $codres)
             ->where('fecha', '=', $fecha)
-            ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
+            ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
             ->get();
 
 
@@ -157,7 +157,7 @@ class RestauranteUsersController extends Controller
                 ->where('codigoRes', '=', $codres)
                 ->where('fecha', '=', $fecha)
                 ->where('hora', '=', $hora)
-                ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
+                ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
                 ->get();
 
 
@@ -211,7 +211,7 @@ class RestauranteUsersController extends Controller
                 ->where('codigoRes', '=', $codres)
                 ->where('fecha', '=', $fecha)
                 ->where('hora', '=', $hora)
-                ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
+                ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
                 ->update([
                     'fecha' => $request->post('fecha'),
                     'hora' => $request->post('hora'),
@@ -232,7 +232,7 @@ class RestauranteUsersController extends Controller
                 ->where('codigoRes', '=', $codres)
                 ->where('fecha', '=', $fecha)
                 ->where('hora', '=', $hora)
-                ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
+                ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
                 ->get();
             return view('Reserva.editarReserva', compact('reservas'))->with("fail", "No puede realizar mas de una reserva para el mismo dia y la misma hora");
         }
@@ -255,7 +255,7 @@ class RestauranteUsersController extends Controller
             ->where('codigoRes', '=', $codres)
             ->where('fecha', '=', $fecha)
             ->where('hora', '=', $hora)
-            ->where('Id', '=', $id) //otra opcion es pasar por parametro la Id
+            ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
             ->delete();
         return redirect()->route("inicio.inicio")->with("success", "Reserva cancelada con exito"); //este es el mensaje que aparece como $mensaje 
     }

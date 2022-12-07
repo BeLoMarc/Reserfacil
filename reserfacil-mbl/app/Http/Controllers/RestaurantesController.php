@@ -23,7 +23,7 @@ class RestaurantesController extends Controller
         } catch (Throwable $e) {
             $id = Session::get('user');
         }
-        $restaurantes = DB::table('restaurantes')->where('Id', '=',$id)->get();
+        $restaurantes = DB::table('restaurantes')->where('id', '=',$id)->get();
         //$restaurantes = restaurantes::all();
         foreach ($restaurantes as $re) {
             return view('Restaurante.listarRestaurante', compact('restaurantes'));
@@ -139,7 +139,7 @@ class RestaurantesController extends Controller
         }
         
         $cr = DB::table('restaurantes')->select('codigoRestaurante') // aqui busco el codigo del restaurante que acabo de crear
-            ->where('Id', '=', $id)->orderByDesc('codigoRestaurante')->first();
+            ->where('id', '=', $id)->orderByDesc('codigoRestaurante')->first();
 
 
         $var = $request->post('cats');
