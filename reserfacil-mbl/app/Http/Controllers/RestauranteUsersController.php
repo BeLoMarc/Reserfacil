@@ -70,7 +70,7 @@ class RestauranteUsersController extends Controller
         //     'hora' => 'required',
         //     'personas' => 'required',
         //]);
-        try {
+        
             //$hoy = date('Y/m/d'); |date|date_format:Y/m/d    ,doesnt_start_with:-,0
             //Solo los datos requeridos
             $rules = [
@@ -82,10 +82,10 @@ class RestauranteUsersController extends Controller
             //mensajes que quiero mandar por si existen errores en la parte servidora
             $messages = [
                 'fecha.required' => 'La fecha no puede estar en blanco',
-                'fecha.after_or_equal' => 'Debes elegir una a partir de hoy',
+                // 'fecha.after_or_equal' => 'Debes elegir una a partir de hoy',
                 'hora.required' => 'la hora no puede estar vacia',
                 'personas.required' => 'Las personas no pueden estar vacias',
-                'personas.doesnt_start_with' => 'Debe ir al menos una persona a la reserva',
+                //   'personas.doesnt_start_with' => 'Debe ir al menos una persona a la reserva',
             ];
             //metodo que necesita de estos 3 argumentos para realizar la validacion
             $this->validate($request, $rules, $messages);
@@ -111,9 +111,7 @@ class RestauranteUsersController extends Controller
             $res->save(); //este metodo lo guarda
 
             return redirect()->route("inicio.inicio")->with("success", "Reserva realizada con exito"); //este es el mensaje que aparece como $mensaje 
-        } catch (Throwable $e) {
-            return redirect()->route("inicio.inicio")->with("fail", "No puede realizar mas de una reserva para el mismo dia y la misma hora o no se ha regitrado");
-        }
+       
     }
 
     /**
