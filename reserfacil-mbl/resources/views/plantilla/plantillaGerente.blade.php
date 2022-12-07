@@ -55,22 +55,9 @@
                     class="nav__category__link__span lang" key="Clases">
                     Cerrar Sesion</span></a>
         </div>
-        <div class="nav__category">
-            <a href="{{ route('cliente.create') }}" class="nav__category__link"><span
-                    class="nav__category__link__span lang" key="Clases">
-                    Registrar Cliente</span></a>
-        </div>
-        <div class="nav__category">
-            <a href="{{ route('cliente.edit') }}" class="nav__category__link"><span
-                    class="nav__category__link__span lang" key="Clases">
-                    Editar Perfil</span></a>
-        </div>
-        <div class="nav__category">
-            <a href="{{ route('reserva.index') }}" class="nav__category__link">
-                <span class="nav__category__link__span">
-                    Mostrar Reservas </span>
-            </a>
-        </div>
+      
+       
+       
         {{-- <div class="nav__category">
             <a class="nav__category__link">
                 <span class="nav__category__link__span">

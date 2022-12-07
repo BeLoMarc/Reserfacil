@@ -90,9 +90,9 @@ class RestaurantesController extends Controller
 
         $res = new restaurantes();
         try{
-             $res->Id =  Auth::user()->id; //Codigo del gerente
+             $res->id =  Auth::user()->id; //Codigo del gerente
         }catch(throwable $e){
-            $res->Id=Session::get('user');
+            $res->id=Session::get('user');
         }
        
         $res->nombre = $request->post('nombre'); //nombre del restaurante
