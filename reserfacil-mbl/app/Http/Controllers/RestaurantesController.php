@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 use Throwable;
+
 class RestaurantesController extends Controller
 {
     /**
@@ -23,13 +24,13 @@ class RestaurantesController extends Controller
         } catch (Throwable $e) {
             $id = Session::get('user');
         }
-        $restaurantes = DB::table('restaurantes')->where('id', '=',$id)->get();
+        $restaurantes = DB::table('restaurantes')->where('id', '=', $id)->get();
         //$restaurantes = restaurantes::all();
         foreach ($restaurantes as $re) {
             return view('Restaurante.listarRestaurante', compact('restaurantes'));
         }
         return redirect()->route("inicio.inicio")->with("fail", "No tienes ningun Restaurante que administrar, crea uno primero"); //este es el mensaje que aparece como $mensaje 
-        
+
     }
 
     /**
@@ -89,12 +90,12 @@ class RestaurantesController extends Controller
 
 
         $res = new restaurantes();
-        try{
-             $res->id =  Auth::user()->id; //Codigo del gerente
-        }catch(throwable $e){
-            $res->id=Session::get('user');
+        try {
+            $res->id =  Auth::user()->id; //Codigo del gerente
+        } catch (throwable $e) {
+            $res->id = Session::get('user');
         }
-       
+
         $res->nombre = $request->post('nombre'); //nombre del restaurante
 
         if ($request->hasFile("carta")) {
@@ -137,7 +138,7 @@ class RestaurantesController extends Controller
         } catch (Throwable $e) {
             $id = Session::get('user');
         }
-        
+
         $cr = DB::table('restaurantes')->select('codigoRestaurante') // aqui busco el codigo del restaurante que acabo de crear
             ->where('id', '=', $id)->orderByDesc('codigoRestaurante')->first();
 
@@ -292,8 +293,51 @@ class RestaurantesController extends Controller
                     'telefono' => $request->post('telefono')
                 ]
             );
-        $cr = $request->post('codigoRestaurante'); //aqui guardo el codigo del restaurante, lo recojo de un campo hidden
 
+        $cr = $request->post('codigoRestaurante'); //aqui guardo el codigo del restaurante, lo recojo de un campo hidden
+        $locBorrar = DB::table('restaurante_localidad')->where('codigoRes', '=', $cr)->get(); //hago la busqueda de las localidades donde esta el restaurante a editar
+
+        $lc = $request->post('locs'); //guardo en un array las localidades donde digo que esta el restaurante
+
+        foreach ($locBorrar as $item) { //Elimino todas las localidades del restaurante para inserta las nuevas
+            if (in_array($item->codigoLoc, $lc)) { 
+                DB::table('restaurante_localidad') 
+                    ->where('codigoLoc', '=', $item->codigoLoc)
+                    ->where('codigoRes', '=', $cr)->delete();
+            }
+        }
+       
+
+        //OBJETO
+        $catBorrar = DB::table('restaurante_categorias')->where('codigoRes', '=', $cr)->get(); //buco todas las categorias a las que pertenecia el restaurante
+        //ARRAY
+        $cb = $request->post('cats'); //en este array estan las nuevas categorias donde quiero que se encuentre
+        foreach ($catBorrar as $item) { //las comparo y si donde estaban antes ahora no, quiere decir que ya no pertenecen a dicha categoria
+            if (in_array($item->codigoCat, $cb)) { //por tanto las elimino
+                DB::table('restaurante_categorias')
+                    ->where('codigoCat', '=', $item->codigoCat)
+                    ->where('codigoRes', '=', $cr)->delete();
+            }
+        }
+
+        $var = $request->post('cats');
+        foreach ($var as $cat => $c) { // recorro el array de categorias y las inserto
+
+            DB::table('restaurante_categorias')->insert([
+
+                'codigoRes' => $cr,
+                'codigoCat' => $c
+            ]);
+        }
+
+        foreach ($request->post('locs') as $localidad => $lo) {
+            DB::table('restaurante_localidad')->insert([ //recorro el array de localidades y las inserto
+                'codigoRes' => $cr,
+                'codigoLoc' => $lo
+            ]);
+        }
+
+        /*
         $locBorrar = DB::table('restaurante_localidad')->where('codigoRes', '=', $cr)->get(); //hago la busqueda de las localidades donde esta el restaurante a editar
 
         $lc = $request->post('locs'); //guardo en un array las localidades donde digo que esta el restaurante
@@ -330,7 +374,7 @@ class RestaurantesController extends Controller
                 ['codigoCat' => $catB]
             );
         }
-
+*/
         return redirect()->route("restaurante.index")->with("success", "Restaurante actualizado con exito"); //este es el mensaje que aparece como $mensaje en listar restaurante
     }
 
