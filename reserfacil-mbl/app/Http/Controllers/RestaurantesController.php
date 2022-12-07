@@ -299,26 +299,25 @@ class RestaurantesController extends Controller
 
         $lc = $request->post('locs'); //guardo en un array las localidades donde digo que esta el restaurante
 
-        foreach ($locBorrar as $item) { //Elimino todas las localidades del restaurante para inserta las nuevas
-            if (in_array($item->codigoLoc, $lc)) { 
+         //Elimino todas las localidades del restaurante para inserta las nuevas
+            
                 DB::table('restaurante_localidad') 
-                    ->where('codigoLoc', '=', $item->codigoLoc)
                     ->where('codigoRes', '=', $cr)->delete();
-            }
-        }
+            
+        
        
 
         //OBJETO
         $catBorrar = DB::table('restaurante_categorias')->where('codigoRes', '=', $cr)->get(); //buco todas las categorias a las que pertenecia el restaurante
         //ARRAY
         $cb = $request->post('cats'); //en este array estan las nuevas categorias donde quiero que se encuentre
-        foreach ($catBorrar as $item) { //las comparo y si donde estaban antes ahora no, quiere decir que ya no pertenecen a dicha categoria
-            if (in_array($item->codigoCat, $cb)) { //por tanto las elimino
+       //las comparo y si donde estaban antes ahora no, quiere decir que ya no pertenecen a dicha categoria
+           //por tanto las elimino
                 DB::table('restaurante_categorias')
-                    ->where('codigoCat', '=', $item->codigoCat)
+                  
                     ->where('codigoRes', '=', $cr)->delete();
-            }
-        }
+            
+        
 
         $var = $request->post('cats');
         foreach ($var as $cat => $c) { // recorro el array de categorias y las inserto
