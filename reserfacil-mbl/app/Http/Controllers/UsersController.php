@@ -278,7 +278,7 @@ class UsersController extends Controller
      */
     public function editCliente(User $User)
     {
-        $cliente = DB::table('users')->where('Id', '=',  Session::get('user'))->get();
+        $cliente = DB::table('users')->where('id', '=',  Session::get('user'))->get();
 
         //return view('editarCliente', compact('cliente'));
         return view('Usuario.editarCliente', compact('cliente'));
@@ -321,7 +321,7 @@ class UsersController extends Controller
 
 
             DB::table('users')
-                ->where('Id', $id)
+                ->where('id', $id)
                 ->update(
                     [
                         // 'codigoGer' => $request->post('codigoGer'),
