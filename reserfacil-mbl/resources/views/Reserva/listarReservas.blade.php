@@ -34,7 +34,7 @@
                     <tr>
                         <th class="table-secondary" scope="row">{{ $reserva->codigoRes }}</th>
                         <td class="table-secondary">{{ $reserva->nombreRestaurante }}</td>
-                        <td class="table-secondary">{{ $reserva->Id }}</td>
+                        <td class="table-secondary">{{ $reserva->id }}</td>
                         @foreach ($usuario as $usu)
                             <td class="table-secondary"> {{ $usu->nombre }} </td>
                         @endforeach

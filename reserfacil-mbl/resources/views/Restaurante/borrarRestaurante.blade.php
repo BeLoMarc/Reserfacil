@@ -28,7 +28,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">{{ $restaurante->codigoRestaurante }}</th>
-                        <td>{{ $restaurante->Id }}</td>
+                        <td>{{ $restaurante->id }}</td>
                         <td>{{ $restaurante->nombre }}</td>
                         <td>{{ $restaurante->carta }}</td>
                         <td>{{ $restaurante->foto }}</td>

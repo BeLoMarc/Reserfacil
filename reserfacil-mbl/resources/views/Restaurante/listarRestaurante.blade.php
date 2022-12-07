@@ -32,7 +32,7 @@
                     <tr>
                         <th class="table-danger" scope="row">{{ $restaurante->codigoRestaurante }}</th>
                         <!-- codigo Gerente -->
-                        <td class="table-secondary">{{ $restaurante->Id }}</td>
+                        <td class="table-secondary">{{ $restaurante->id }}</td>
                         <td class="table-secondary">{{ $restaurante->nombre }}</td>
                         <td class="table-secondary">{{ $restaurante->carta }}</td>
                         <td class="table-secondary">{{ $restaurante->foto }}</td>

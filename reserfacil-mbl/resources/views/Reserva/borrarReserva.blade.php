@@ -26,7 +26,7 @@
                 <tbody>
                     <tr>
                         <th scope="row">{{ $reserva->codigoRes }}</th>
-                        <td>{{ $reserva->Id }}</td>
+                        <td>{{ $reserva->id }}</td>
                         <td>{{ $reserva->fecha }}</td>
                         <td>{{ $reserva->hora }}</td>
                         <td>{{ $reserva->personas }}</td>
