@@ -234,7 +234,7 @@ class UsersController extends Controller
             return redirect()->route("inicio.inicio")->with("success", "Bienvenido de nuevo D.ª " . Auth::user()->nombre); //este es el mensaje que aparece como $mensaje en listar restaurante
 
         }
-        return redirect()->route("Usuario.formularioLogginCliente")->with("fail", "No ha sido posible iniciar Sesion, correo o contraseña incorrectos");
+        return redirect()->route("cliente.logginRegistroCliente")->with("fail", "No ha sido posible iniciar Sesion, correo o contraseña incorrectos");
         // return back()->withErrors([
         //    'email' => 'The provided credentials do not match our records.',
         //])->onlyInput('email');
