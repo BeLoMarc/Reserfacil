@@ -162,7 +162,7 @@ class DatabaseSeeder extends Seeder
 |--------------------------------------------------------------------------
 */
         DB::table('restaurantes')->insert([
-            'Id' => 1,
+            'id' => 1,
             'nombre' => 'Malenia',
             'carta' => 'carta-de-malenia.jpg',
             'foto' => 'malenia.jpg',
@@ -172,7 +172,7 @@ class DatabaseSeeder extends Seeder
             'telefono' => '123456789'
         ]);
         DB::table('restaurantes')->insert([
-            'Id' => 2,
+            'id' => 2,
             'nombre' => 'Cocifacil',
             'carta' => 'carta-de-cocifacil.jpg',
             'foto' => 'cocifacil.jpg',
