@@ -107,9 +107,9 @@ class UsersController extends Controller
 
     public function rellenar()
     {
-        $a = Auth::user()->Id;
+        $a = Auth::user()->id;
         $b = Auth::user()->isAdmin;
-        Session::put('user', Auth::user()->Id);
+        Session::put('user', Auth::user()->id);
         Session::put('admin', Auth::user()->isAdmin);
         Session::save();
     }
@@ -177,7 +177,7 @@ class UsersController extends Controller
         ];
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            Session::put('user', Auth::user()->Id);
+            Session::put('user', Auth::user()->id);
             Session::put('admin', Auth::user()->isAdmin);
             //  $b=Session::get('admin');
             //  $a=Session::get('user');
@@ -232,7 +232,7 @@ class UsersController extends Controller
 
             $request->authenticate();
             $request->session()->regenerate();
-            Session::put('user', Auth::user()->Id);
+            Session::put('user', Auth::user()->id);
             Session::put('admin', Auth::user()->isAdmin);
             //  $b=Session::get('admin');
             //  $a=Session::get('user');

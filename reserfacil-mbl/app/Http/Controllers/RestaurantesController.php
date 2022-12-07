@@ -19,7 +19,7 @@ class RestaurantesController extends Controller
     public function index()
     {
         try {
-            $id = Auth::user()->Id;
+            $id = Auth::user()->id;
         } catch (Throwable $e) {
             $id = Session::get('user');
         }
@@ -90,7 +90,7 @@ class RestaurantesController extends Controller
 
         $res = new restaurantes();
         try{
-             $res->Id =  Auth::user()->Id; //Codigo del gerente
+             $res->Id =  Auth::user()->id; //Codigo del gerente
         }catch(throwable $e){
             $res->Id=Session::get('user');
         }
@@ -133,7 +133,7 @@ class RestaurantesController extends Controller
 
         $res->save(); //este metodo lo guarda
         try {
-            $id = Auth::user()->Id;
+            $id = Auth::user()->id;
         } catch (Throwable $e) {
             $id = Session::get('user');
         }

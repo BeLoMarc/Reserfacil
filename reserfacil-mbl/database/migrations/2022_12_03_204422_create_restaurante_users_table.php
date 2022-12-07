@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('nombreRestaurante');
             $table->primary(array('codigoRes', 'Id','fecha','hora'));//ultimo cambio añadir hora
             $table->foreign('codigoRes')->references('codigoRestaurante')->on('restaurantes');
-            $table->foreign('Id')->references('Id')->on('users');
+            $table->foreign('Id')->references('id')->on('users');
 
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class RestauranteUsersController extends Controller
     public function index()
     {   //me saca el usuario loggeado para recoger su nombre
         try {
-            $id = Auth::user()->Id;
+            $id = Auth::user()->id;
         } catch (Throwable $e) {
             $id = Session::get('user');
         }
@@ -96,7 +96,7 @@ class RestauranteUsersController extends Controller
             $res->codigoRes = $codigoRes; //Codigo del restaurante
             //$res->nombreRes = $nombreRes; Nombre del restaurante en la vista mostrarInfo
             try {
-                $res->Id = Auth::user()->Id; //codigo del cliente
+                $res->Id = Auth::user()->id; //codigo del cliente
             } catch (Throwable $e) {
                 $res->Id = Session::get('user'); //codigo del cliente
             }
@@ -125,7 +125,7 @@ class RestauranteUsersController extends Controller
     public function show(restaurante_users $restaurante_users, $codres, $fecha)
     {
         try {
-            $id = Auth::user()->Id;
+            $id = Auth::user()->id;
         } catch (Throwable $e) {
             $id = Session::get('user');
         }
@@ -151,7 +151,7 @@ class RestauranteUsersController extends Controller
 
 
             try {
-                $id = Auth::user()->Id;
+                $id = Auth::user()->id;
             } catch (Throwable $e) {
                 $id = Session::get('user');
             }
@@ -204,7 +204,7 @@ class RestauranteUsersController extends Controller
             $this->validate($request, $rules, $messages);
 
             try {
-                $id = Auth::user()->Id;
+                $id = Auth::user()->id;
             } catch (Throwable $e) {
                 $id = Session::get('user');
             }
@@ -225,7 +225,7 @@ class RestauranteUsersController extends Controller
 
         } catch (Throwable $e) {
             try {
-                $id = Auth::user()->Id;
+                $id = Auth::user()->id;
             } catch (Throwable $e) {
                 $id = Session::get('user');
             }
@@ -249,7 +249,7 @@ class RestauranteUsersController extends Controller
     public function destroy($codres, $fecha, $hora)
     {
         try {
-            $id = Auth::user()->Id;
+            $id = Auth::user()->id;
         } catch (Throwable $e) {
             $id = Session::get('user');
         }

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('direccion'); 
             $table->string('descripcion'); 
             $table->string('telefono', 12); //Equivalente a int
-             $table->foreign('Id')->references('Id')->on('users');
+             $table->foreign('Id')->references('id')->on('users');
 
             $table->timestamps();
             //$table->primary('codigoRestaurante');

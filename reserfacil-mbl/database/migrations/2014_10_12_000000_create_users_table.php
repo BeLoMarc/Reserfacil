@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {    
-            $table->id('Id');// ambos tipos
+            $table->id('id');// ambos tipos
             $table->string('nombre');// ambos tipos
             $table->string('apellido1')->nullable();// solo gerente
             $table->string('apellido2')->nullable();// solo gerente
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('direccion')->nullable();// solo gerente
             $table->string('telefono',12);// ambos tipos
            //Si da error poner nullable
-            $table->boolean('isAdmin')->default(false);// ambos tipos
+            $table->integer('isAdmin')->default(0);// ambos tipos
             
             //Valores default
             //$table->id();
