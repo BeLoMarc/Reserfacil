@@ -25,7 +25,7 @@ class RestauranteUsersController extends Controller
         }
 
         $usuario = DB::table('users')
-            ->Where('Id', '=', $id)
+            ->Where('id', '=', $id)
             ->get();
         // $reservas = restaurante_users::all(); Esta query es para que me saque todas las reservas,
         // pero en el nombre del cliente pone el mismo porque coge el que esta actualmente loggeado
