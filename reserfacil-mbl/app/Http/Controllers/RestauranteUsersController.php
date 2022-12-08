@@ -188,16 +188,16 @@ class RestauranteUsersController extends Controller
             $rules = [
                 'fecha' => 'required',
                 'hora' => 'required', //
-                'personas' => 'required', //
+                'personas' => 'required|integer', //
 
             ];
             //mensajes que quiero mandar por si existen errores en la parte servidora
             $messages = [
                 'fecha.required' => 'La fecha no puede estar en blanco',
-                'fecha.after_or_equal' => 'Debes elegir una a partir de hoy',
+            
                 'hora.required' => 'la hora no puede estar vacia',
                 'personas.required' => 'Las personas no pueden estar vacias',
-                'personas.doesnt_start_with' => 'Debe ir al menos una persona a la reserva',
+                'persona.integer' => 'Debes introducir un numero de personas',
             ];
             //metodo que necesita de estos 3 argumentos para realizar la validacion
             $this->validate($request, $rules, $messages);
