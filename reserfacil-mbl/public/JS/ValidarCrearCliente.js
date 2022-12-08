@@ -6,7 +6,7 @@ let telefonoClienteCorrecto;
 
 
 $('#main').on('click', '#botonCrearCliente', function (event) {
-    console.log("Dentro del metodo de reataurante")
+  
     event.preventDefault();
     validarCrearCliente();
     if (correctoCrearCliente()) {
@@ -31,13 +31,13 @@ function validarCrearCliente() {
         inputNombreCliente.addClass("is-invalid");
         inputNombreCliente.removeClass("is-valid");
         $('#malNombreCliente').empty();
-        $('#malNombreCliente').append(`El nombre del no puede estar vacio`);
+        $('#malNombreCliente').append(`El nombre no puede estar vacio`);
 
     } else if (inputNombreCliente.val().length > 200) {
         inputNombreCliente.addClass("is-invalid");
         inputNombreCliente.removeClass("is-valid");
         $('#malNombreCliente').empty();
-        $('#malNombreCliente').append(`El nombre puede tener mas de 200 caracteres`);
+        $('#malNombreCliente').append(`El nombre no puede tener mas de 200 caracteres`);
     }
     else {
         inputNombreCliente.addClass("is-valid");
@@ -72,13 +72,13 @@ function validarCrearCliente() {
         inputContraseniaCliente.addClass("is-invalid");
         inputContraseniaCliente.removeClass("is-valid");
         $('#malContraseñaCliente').empty();
-        $('#malContraseñaCliente').append(`La contraseña no debe estar vacia`);
+        $('#malContraseñaCliente').append(`La contraseña no puede estar vacia`);
 
     } else if (inputContraseniaCliente.val().length > 200) {
         inputContraseniaCliente.addClass("is-invalid");
         inputContraseniaCliente.removeClass("is-valid");
         $('#malContraseñaCliente').empty();
-        $('#malContraseñaCliente').append(`La contraseña puede tener mas de 200 caracteres`);
+        $('#malContraseñaCliente').append(`La contraseña no puede tener mas de 200 caracteres`);
     }
     else {
         inputContraseniaCliente.addClass("is-valid");

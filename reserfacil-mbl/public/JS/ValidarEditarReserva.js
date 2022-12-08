@@ -59,7 +59,7 @@ function validarEditarReserva() {
         inputPersonasReserva.addClass("is-invalid");
         inputPersonasReserva.removeClass("is-valid");
         $('#malPersonasReserva').empty();
-        $('#malPersonasReserva').append(`No puede estar Vacio el Nombre del restaurante`);
+        $('#malPersonasReserva').append(`No puede estar vacio el numero de personas que van a la reserva`);
 
     } else if(inputPersonasReserva.val()<=0){
         inputPersonasReserva.addClass("is-invalid");

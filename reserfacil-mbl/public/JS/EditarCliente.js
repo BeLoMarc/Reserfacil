@@ -29,13 +29,13 @@ function validareditarCliente() {
         inputNombreCliente.addClass("is-invalid");
         inputNombreCliente.removeClass("is-valid");
         $('#malNombreCliente').empty();
-        $('#malNombreCliente').append(`El nombre del no puede estar vacio`);
+        $('#malNombreCliente').append(`El nombre no puede estar vacio`);
 
     }else if (inputNombreCliente.val().length > 200) {
         inputNombreCliente.addClass("is-invalid");
         inputNombreCliente.removeClass("is-valid");
         $('#malNombreCliente').empty();
-        $('#malNombreCliente').append(`El nombre NO puede tener mas de 200 caracteres`);
+        $('#malNombreCliente').append(`El nombre no puede tener mas de 200 caracteres`);
     }
      else {
         inputNombreCliente.addClass("is-valid");

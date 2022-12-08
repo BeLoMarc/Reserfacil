@@ -54,9 +54,7 @@ function validarcrearRestaurante() {
     else {
         inputFotoCarta.addClass("is-valid");
         inputFotoCarta.removeClass("is-invalid");
-        //$('#buenFotoTienda').empty();
-        //$('#buenFotoTienda').append(`La foto ta bien`);
-        // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
+        
         fotoCartaCorrecto = true;
     }
     /**
@@ -67,14 +65,14 @@ function validarcrearRestaurante() {
         inputBannerRestaurante.addClass("is-invalid");
         inputBannerRestaurante.removeClass("is-valid");
         $('#malBannerRestaurante').empty();
-        $('#malBannerRestaurante').append(`La carta del restaurante no puede estar vacia`);
+        $('#malBannerRestaurante').append(`El banner del restaurante no puede estar vacio`);
 
 
-    } else if (!(/.(gif|jpe?g|tiff?|png|webp|bmp)$/i.test(inputBannerRestaurante.val()))) {
+    } else if (!(/.(jpe?g|tiff?|png|webp|bmp)$/i.test(inputBannerRestaurante.val()))) {
         inputBannerRestaurante.addClass("is-invalid");
         inputBannerRestaurante.removeClass("is-valid");
         $('#malBannerRestaurante').empty();
-        $('#malBannerRestaurante').append(`El archivo no cumple con debe ser .gif, .jpg, .jpeg, .tiff, .png, .webp, .bmp`);
+        $('#malBannerRestaurante').append(`El archivo no cumple con debe ser .jpg, .jpeg, .tiff, .png, .webp, .bmp`);
 
     } else if (inputBannerRestaurante[0].files[0].size > 2000000) {
         inputBannerRestaurante.addClass("is-invalid");
@@ -85,9 +83,7 @@ function validarcrearRestaurante() {
     else {
         inputBannerRestaurante.addClass("is-valid");
         inputBannerRestaurante.removeClass("is-invalid");
-        //$('#buenFotoTienda').empty();
-        //$('#buenFotoTienda').append(`La foto ta bien`);
-        // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
+       
         bannerRestauranteCorrecto = true;
     }
     /**
@@ -115,9 +111,7 @@ function validarcrearRestaurante() {
     else {
         inputFotoRestaurante.addClass("is-valid");
         inputFotoRestaurante.removeClass("is-invalid");
-        //$('#buenFotoTienda').empty();
-        //$('#buenFotoTienda').append(`La foto ta bien`);
-        // inputFotoTienda.closest(".valid-feedback").html("LA LONGITUD de la tienda esta correcto")
+       
         fotoRestauranteCorrecto = true;
     }
 
@@ -130,8 +124,6 @@ function validarcrearRestaurante() {
         $('#malNombreRestaurante').empty();
         $('#malNombreRestaurante').append(`No puede estar Vacio el Nombre del restaurante`);
 
-        // inputnombreTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
-
     } else if (inputNombreRestaurante.val().length > 200) {
         inputNombreRestaurante.addClass("is-invalid");
         inputNombreRestaurante.removeClass("is-valid");
@@ -142,8 +134,7 @@ function validarcrearRestaurante() {
     else {
         inputNombreRestaurante.addClass("is-valid");
         inputNombreRestaurante.removeClass("is-invalid");
-        // $('#buenNombreTienda').empty();
-        // $('#buenNombreTienda').append(`El nombre de la tienda esta correcto`);
+       
         nombreRestauranteCorrecto = true;
     }
 
@@ -167,8 +158,7 @@ function validarcrearRestaurante() {
     else {
         inputDireccionRestaurante.addClass("is-valid");
         inputDireccionRestaurante.removeClass("is-invalid");
-        // $('#buenNombreTienda').empty();
-        // $('#buenNombreTienda').append(`El nombre de la tienda esta correcto`);
+       
         direccionRestauranteCorrecto = true;
     }
 
@@ -190,8 +180,7 @@ function validarcrearRestaurante() {
     } else {
         inputDescripcionRestaurante.addClass("is-valid");
         inputDescripcionRestaurante.removeClass("is-invalid");
-        // $('#buenNombreTienda').empty();
-        // $('#buenNombreTienda').append(`El nombre de la tienda esta correcto`);
+       
         descripcionRestauranteCorrecto = true;
     }
 
@@ -203,7 +192,7 @@ function validarcrearRestaurante() {
         inputTelefonoRestaurante.removeClass("is-valid");
         $('#malTelefonoRestaurante').empty();
         $('#malTelefonoRestaurante').append(`El telefono no puede estar vacio`);
-        //inputtelefonoTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
+     
 
     } else if (!(/[0-9]{3}[0-9]{3}[0-9]{3}/g.test(inputTelefonoRestaurante.val())) || (Number.parseInt(
         inputTelefonoRestaurante.val().length) > 11)) {
@@ -211,13 +200,11 @@ function validarcrearRestaurante() {
         inputTelefonoRestaurante.removeClass("is-valid");
         $('#malTelefonoRestaurante').empty();
         $('#malTelefonoRestaurante').append(`El telefono debe tener 9 numeros siguiendo el patron XXXXXXXXX`);
-        //inputtelefonoTienda.closest(".invalid-feedback").html("el telefono debe tener 9 numeros siguiendo el patron XXX-XXX-XXX")
+     
     } else {
         inputTelefonoRestaurante.addClass("is-valid");
         inputTelefonoRestaurante.removeClass("is-invalid");
-        //$('#buenTelefonoRestaurante').empty();
-        //      $('#buenTelefonoRestaurante').append(`El telefono de la tienda esta correcto`);
-        //inputtelefonoTienda.closest(".valid-feedback").html("El telefono de la tienda esta correcto")
+        
         telefonoRestauranteCorrecto = true;
     }
 
@@ -231,12 +218,12 @@ function validarcrearRestaurante() {
         $('#malCheckCategorias').empty();
         $('#malCheckCategorias').append(`Debes elegir al menos una categoria`);
 
-        //inputCIFTienda.closest(".invalid-feedback").html("No puede estar Vacio la descripcion")
+       
     } else {
         $('[name="cats[]"]').addClass("is-valid");
         $('[name="cats[]"]').removeClass("is-invalid");
         $('#buenCheckCategorias').empty();
-        //$('#buenCifTienda').append(`La categoria cumple los requisitos`);
+      
         checkCategoriasCorrecto = true;
     }
 

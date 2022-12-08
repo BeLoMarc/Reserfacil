@@ -4,7 +4,7 @@ let horaCorrecto;
 let personasCorrecto;
 
 $('#main').on('click', '#botonCrearReserva', function (event) {
-    console.log("Dentro del metodo de reataurante")
+   
     event.preventDefault();
     validarcrearReserva();
     if (correctoCrearReserva()) {
@@ -65,7 +65,7 @@ function validarcrearReserva() {
         inputPersonasReserva.addClass("is-invalid");
         inputPersonasReserva.removeClass("is-valid");
         $('#malPersonasReserva').empty();
-        $('#malPersonasReserva').append(`No puede estar Vacio el Nombre del restaurante`);
+        $('#malPersonasReserva').append(`No puede estar Vacio el Numero de Personas`);
 
     } else if (inputPersonasReserva.val() <= 0) {
         inputPersonasReserva.addClass("is-invalid");
