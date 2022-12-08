@@ -70,48 +70,49 @@ class RestauranteUsersController extends Controller
         //     'hora' => 'required',
         //     'personas' => 'required',
         //]);
-        
-            //$hoy = date('Y/m/d'); |date|date_format:Y/m/d    ,doesnt_start_with:-,0
-            //Solo los datos requeridos
-            $rules = [
-                'fecha' => 'required',
-                'hora' => 'required', //
-                'personas' => 'required', //
 
-            ];
-            //mensajes que quiero mandar por si existen errores en la parte servidora
-            $messages = [
-                'fecha.required' => 'La fecha no puede estar en blanco',
-                // 'fecha.after_or_equal' => 'Debes elegir una a partir de hoy',
-                'hora.required' => 'la hora no puede estar vacia',
-                'personas.required' => 'Las personas no pueden estar vacias',
-                //   'personas.doesnt_start_with' => 'Debe ir al menos una persona a la reserva',
-            ];
-            //metodo que necesita de estos 3 argumentos para realizar la validacion
-            $this->validate($request, $rules, $messages);
+        //$hoy = date('Y/m/d'); |date|date_format:Y/m/d    ,doesnt_start_with:-,0
+        //Solo los datos requeridos
+        $rules = [
+            'fecha' => 'required',
+            'hora' => 'required', //
+            'personas' => 'required|integer', //
+
+        ];
+        //mensajes que quiero mandar por si existen errores en la parte servidora
+        $messages = [
+            'fecha.required' => 'La fecha no puede estar en blanco',
+            // 'fecha.after_or_equal' => 'Debes elegir una a partir de hoy',
+            'hora.required' => 'la hora no puede estar vacia',
+            'personas.required' => 'Las personas no pueden estar vacias',
+            'persona.integer' => 'Debes introducir un numero de personas',
+            //   'personas.doesnt_start_with' => 'Debe ir al menos una persona a la reserva',
+        ];
+        //metodo que necesita de estos 3 argumentos para realizar la validacion
+        $this->validate($request, $rules, $messages);
 
 
 
-            $res = new restaurante_users();
-            $res->codigoRes = $codigoRes; //Codigo del restaurante
-            //$res->nombreRes = $nombreRes; Nombre del restaurante en la vista mostrarInfo
-            try {
-                $res->id = Auth::user()->id; //codigo del cliente
-            } catch (Throwable $e) {
-                $res->id = Session::get('user'); //codigo del cliente
-            }
+        $res = new restaurante_users();
+        $res->codigoRes = $codigoRes; //Codigo del restaurante
+        //$res->nombreRes = $nombreRes; Nombre del restaurante en la vista mostrarInfo
+        try {
+            $res->id = Auth::user()->id; //codigo del cliente
+        } catch (Throwable $e) {
+            $res->id = Session::get('user'); //codigo del cliente
+        }
 
-            $res->fecha = $request->post('fecha'); //fecha
-            //parseamos la hora a varchar
-            //  $horaBien = date('h:i A', strtotime($request->post('hora'))); //hora
-            //  $res->hora = $horaBien;
-            $res->hora = $request->post('hora'); //DESCOMENTAR LAS DOS DE ARRIBA SU FALLA
-            $res->personas = $request->post('personas'); //cantidad de personas
-            $res->nombreRestaurante = $request->post('nombreR');
-            $res->save(); //este metodo lo guarda
+        $res->fecha = $request->post('fecha'); //fecha
+        //parseamos la hora a varchar
+        //  $horaBien = date('h:i A', strtotime($request->post('hora'))); //hora
+        //  $res->hora = $horaBien;
+        $res->hora = $request->post('hora'); //DESCOMENTAR LAS DOS DE ARRIBA SU FALLA
+        $res->personas = $request->post('personas'); //cantidad de personas
+        $res->nombreRestaurante = $request->post('nombreR');
+        $res->save(); //este metodo lo guarda
 
-            return redirect()->route("inicio.inicio")->with("success", "Reserva realizada con exito"); //este es el mensaje que aparece como $mensaje 
-       
+        return redirect()->route("inicio.inicio")->with("success", "Reserva realizada con exito"); //este es el mensaje que aparece como $mensaje 
+
     }
 
     /**

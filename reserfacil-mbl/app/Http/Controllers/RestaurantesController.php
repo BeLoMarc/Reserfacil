@@ -265,6 +265,7 @@ class RestaurantesController extends Controller
             copy($carta->getRealPath(), $ruta . $nombreimagencar);
             // $restaurante->carta = $nombreimagen;
         }
+
         if ($request->hasFile("foto")) {
             $foto = $request->file("foto");
             $nombreimagenfoto = Str::slug($request->nombre) . "." . $foto->guessExtension();
