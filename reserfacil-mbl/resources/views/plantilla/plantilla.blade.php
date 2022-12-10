@@ -77,7 +77,8 @@
                 <a class="nav__category__link">
                     <span class="nav__category__link__span"> Para poder ver los detalles de los restaurantes no
                         olvides iniciar sesion
-                    </span></a>
+                    </span>
+                </a>
             </div>
         @endif
         @if (Session::get('admin') === 1)

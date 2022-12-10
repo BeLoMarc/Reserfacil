@@ -16,17 +16,15 @@ class controladorPIni extends Controller
 {
     public function Cargardatos()
     {
-        // me saca los restaurantes por ahora con el mismo nombre
-        //$restauranteUnico = DB::table('restaurantes')->distinct()->get('nombre');
+        
         $restauranteUnico = DB::table('restaurantes')->select('nombre')->distinct()->get();
 
-        //$restaurantes = restaurante::all();
+        
         $restaurantes = DB::table('restaurantes')->orderBy('nombre')->get(); //Devuelve los nombres de los restaurantes
         $categorias = DB::table('categorias')->orderBy('nombre')->get();
         $localidades = DB::table('localidad')->orderBy('nombre')->get();
         $categoriasRestaurante = DB::table('restaurante_categorias')->get();
         $localidadesRestaurante =  DB::table('restaurante_localidad')->get();;
-        //return view('index', compact('restaurantes', 'restauranteUnico', 'categorias', 'localidades', 'categoriasRestaurante', 'localidadesRestaurante'));
         $restauranteElegido = "v";
         $localidadElegida = "v";
         $categoriaElegida = "v";
@@ -109,8 +107,7 @@ class controladorPIni extends Controller
             ->join("localidad", "localidad.codigoLocalidad", "=", "restaurante_localidad.codigoLoc")
             ->select("*")
             ->get();
-        //Volvemos a cargar el formulario
-        //   $restauranteUnico = DB::table('restaurantes')->distinct()->get('nombre');
+      
         $restauranteUnico = DB::table('restaurantes')->select('nombre')->distinct()->get();
 
         $categorias = DB::table('categorias')->orderBy('nombre')->get();

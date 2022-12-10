@@ -20,12 +20,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::get('/', function () {});
-
-// tes are loaded by the RouteServiceProvider within a group which
-// | contains the "web" middleware group. Now create something great!
-// |
-// */
 
 Route::get('/',[controladorPIni::class, 'Cargardatos'])->name('inicio.inicio');
 
@@ -40,7 +34,7 @@ Route::post('/', [controladorPIni::class, 'Filtro'])->name('inicio.filtrado');
 */
 Route::get('/crear-restaurante', [RestaurantesController::class, 'create'])->name('restaurante.create'); //Formulario de crear Restaurante
 Route::post('/guardar-restaurante', [RestaurantesController::class, 'store'])->name('restaurante.store'); //Añade a la BBDD el nuevo restaurante
-//le obligo a que reciva un parametro y va con la interrogacion de opcional porque si no da error el listar
+
 /*
 |--------------------------------------------------------------------------
 | Listar Restaurante ligado a gerente
@@ -53,7 +47,7 @@ Route::get('/listar-restaurante', [RestaurantesController::class, 'index'])->nam
 |--------------------------------------------------------------------------
 */
 Route::post('/editar-restaurante/{codigoRestaurante?}', [RestaurantesController::class, 'edit'])->name('restaurante.edit'); //Formulario de Editar Restaurante
-//es de tipo put porq asi lo especifico en el method del formulario que se encuentra en la vista editar
+//es de tipo put porque asi lo especifico en el method del formulario que se encuentra en la vista editar
 Route::put('/guardar-restaurante/{codigoRestaurante?}', [RestaurantesController::class, 'update'])->name('restaurante.update'); //Actualiza la BBDD con el nuevo restaurante
 /*
 |--------------------------------------------------------------------------
@@ -104,7 +98,7 @@ Route::get('/logOut', [UsersController::class, 'logOut'])->name('cliente.logOut'
 |--------------------------------------------------------------------------
 | Creacion Reserva
 |--------------------------------------------------------------------------
-*/                                                  //METODO VACIO
+*/                                                 
 Route::get('/crear-reserva', [RestauranteUsersController::class, 'create'])->name('reserva.create'); //Formulario de crear reserva
 Route::post('/guardar-reserva/{codigoRestaurante}', [RestauranteUsersController::class, 'store'])->name('reserva.store'); //Añade a la BBDD la nueva reserva
 
@@ -132,12 +126,3 @@ Route::delete('/borrar-reserva/{codigoRes?}&{fecha?}&{hora?}', [RestauranteUsers
 
 
 
-
-
-
-
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// require __DIR__.'/auth.php';

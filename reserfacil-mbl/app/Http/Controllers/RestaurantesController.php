@@ -27,7 +27,7 @@ class RestaurantesController extends Controller
         $restaurantes = DB::table('restaurantes')->where('id', '=', $id)->get();
         //$restaurantes = restaurantes::all();
         foreach ($restaurantes as $re) {
-            return view('Restaurante.listarRestaurante', compact('restaurantes'));
+            return view('Restaurante.listarRestaurante', ['restaurantes'=>$restaurantes]);
         }
         return redirect()->route("inicio.inicio")->with("fail", "No tienes ningun Restaurante que administrar, crea uno primero"); //este es el mensaje que aparece como $mensaje 
 
@@ -42,7 +42,7 @@ class RestaurantesController extends Controller
     {
         $categorias = DB::table('categorias')->orderBy('nombre')->get();
         $localidad = DB::table('localidad')->orderBy('nombre')->get();
-        return view('Restaurante.crearRestaurante', compact('categorias', 'localidad'));
+        return view('Restaurante.crearRestaurante', ['categorias'=>$categorias, 'localidad'=>$localidad]);
     }
 
     /**
@@ -172,7 +172,7 @@ class RestaurantesController extends Controller
     public function show($codigoRestaurante)
     {
         $restaurantes = DB::table('restaurantes')->where('codigoRestaurante', '=', $codigoRestaurante)->get();
-        return view('Restaurante.borrarRestaurante', compact('restaurantes'));
+        return view('Restaurante.borrarRestaurante', ['restaurantes'=>$restaurantes]);
     }
 
     /**
@@ -395,11 +395,10 @@ class RestaurantesController extends Controller
             ->orderBy('nombre')
             ->get();
         // saca todos los restaurantes ordenador por nombre
-        $restauranteElegido = DB::table('restaurantes')
-            ->where('codigoRestaurante', $codigoRestaurante)
-            ->get();
+      
         $categoriasRestaurante = DB::table('restaurante_categorias')->get();
         $localidadesRestaurante =  DB::table('restaurante_localidad')->get();;
-        return view('infoRestaurante', compact('restaurantes', 'restauranteUnico', 'categorias', 'localidades', 'restauranteElegido', 'categoriasRestaurante', 'localidadesRestaurante'));
+        return view('infoRestaurante', ['restaurantes'=>$restaurantes, 'restauranteUnico'=>$restauranteUnico, 'categorias'=>$categorias,
+         'localidades'=>$localidades, 'categoriasRestaurante'=>$categoriasRestaurante, 'localidadesRestaurante'=>$localidadesRestaurante]);
     }
 }

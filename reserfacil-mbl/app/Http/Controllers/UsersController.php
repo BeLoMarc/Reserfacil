@@ -18,84 +18,6 @@ use App\Http\Controllers\Controller;
 class UsersController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $User
-     * @return \Illuminate\Http\Response
-     */
-    public function show(user $User)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $User
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $User)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $User
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $User)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $User
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $User)
-    {
-        //
-    }
-
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -114,13 +36,7 @@ class UsersController extends Controller
      */
     public function storeCliente(Request $request)
     {
-        // $request->validate([
-        //     'nombre' => 'required',
-        //     'email' => 'required',
-        //     'password' => 'required',
-        //     'telefono' => 'required',
-        // ]);
-        //   try {
+       
         $rules = [
             'nombre' => 'required|max:200',
             'password' => 'required|max:200',
@@ -158,8 +74,7 @@ class UsersController extends Controller
         $cliente->assignRole('cliente');
 
         $cliente->save();
-        //Esto es lo nuevo
-        //    event(new Registered($cliente));
+    
 
         Auth::login($cliente);
         $credentials = [
@@ -171,23 +86,11 @@ class UsersController extends Controller
             $request->session()->regenerate();
             Session::put('user', Auth::user()->id);
             Session::put('admin', Auth::user()->isAdmin);
-            //  $b=Session::get('admin');
-            //  $a=Session::get('user');
+           
             Session::save();
         }
-        // $cli = new User();
-        // $cli->id = 0;
-        // $cli->nombre = $request->post('nombre');
-        // $cli->email = $request->post('email');
-        // $cli->password = Hash::make($request->post('password'));
-        // $cli->telefono = $request->post('telefono');
-        // $cli->save(); //este metodo lo guarda
-        // Auth::login($cli, true);
-        //return redirect()->route("inicio.inicio")->with("success", $cliente->getRoleNames()); //este mensaje me dice los roles del usuario creado en este caso cliente
-        return redirect()->route("inicio.inicio")->with("success", "Disfruta de nuestra aplicacion D.ª" . Auth::user()->nombre . ", perteneces al grupo " . $cliente->getRoleNames());
-        //} catch (Throwable $e) {
-        //  return redirect()->route("inicio.inicio")->with("fail", "El email introducido ya esta en uso. Elija otro");
-        //}
+         return redirect()->route("inicio.inicio")->with("success", "Disfruta de nuestra aplicacion D.ª" . Auth::user()->nombre . ", perteneces al grupo " . $cliente->getRoleNames());
+       
     }
     public function logginRegistroCliente()
     {
@@ -226,8 +129,7 @@ class UsersController extends Controller
             $request->session()->regenerate();
             Session::put('user', Auth::user()->id);
             Session::put('admin', Auth::user()->isAdmin);
-            //  $b=Session::get('admin');
-            //  $a=Session::get('user');
+           
             Session::save();
 
 
@@ -253,17 +155,7 @@ class UsersController extends Controller
 
         return redirect()->route("inicio.inicio");
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $User
-     * @return \Illuminate\Http\Response
-     */
-    public function showCliente(User $User)
-    {
-        //
-    }
-
+ 
     /**
      * Show the form for editing the specified resource.
      *
@@ -274,8 +166,8 @@ class UsersController extends Controller
     {
         $cliente = DB::table('users')->where('id', '=',  Session::get('user'))->get();
 
-        //return view('editarCliente', compact('cliente'));
-        return view('Usuario.editarCliente', compact('cliente'));
+        
+        return view('Usuario.editarCliente', ['cliente'=>$cliente]);
     }
 
     /**
@@ -287,14 +179,7 @@ class UsersController extends Controller
      */
     public function updateCliente(Request $request, $id)
     {
-        // $request->validate([
-        //     'nombre' => 'required',
-        //     'email' => 'required|regex:/^.+@.+$/i|unique:users,email',//es un email requerido, debe pasar por la regex y ademas no tiene q existir
-        //     'telefono' => 'required',
-        // ]);
-
-        //Reglas de validacion
-        //        try {
+       
         $rules = [
             'nombre' => 'required|max:200',
             'email' => 'required|regex:/^.+@.+$/i', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
@@ -318,7 +203,7 @@ class UsersController extends Controller
             ->where('id', $id)
             ->update(
                 [
-                    // 'codigoGer' => $request->post('codigoGer'),
+                  
                     'nombre' => $request->post('nombre'),
                     'email' => $request->post('email'),
                     'telefono' => $request->post('telefono')
@@ -326,19 +211,8 @@ class UsersController extends Controller
             );
 
         return redirect()->route("inicio.inicio")->with("success", "Actualizado con exito"); //este es el mensaje que aparece como $mensaje en listar restaurante
-        //    } catch (Throwable $e) {
-        //        return redirect()->route("cliente.edit")->with("fail", "Error en el servidor. Pongase en contacto con el administrador");
-        //   }
+       
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $User
-     * @return \Illuminate\Http\Response
-     */
-    public function destroyCliente(User $User)
-    {
-        //
-    }
+  
 }

@@ -30,21 +30,13 @@ class RestauranteUsersController extends Controller
 
         $reservas = DB::table('restaurante_users')->where('id', '=', $id)->get(); //esto me da las reservas del cliente autenticado
         foreach ($reservas as $re) {
-            return view('Reserva.listarReservas', compact('reservas', 'usuario'));
+            return view('Reserva.listarReservas', ['reservas'=>$reservas, 'usuario'=>$usuario]);
         }
         return redirect()->route("inicio.inicio")->with("fail", "No tienes ninguna Reserva a tu nombre"); //este es el mensaje que aparece como $mensaje 
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -54,14 +46,7 @@ class RestauranteUsersController extends Controller
      */
     public function store(Request $request, $codigoRes)
     {
-        // $request->validate([
-        //     'fecha' => 'required',
-        //     'hora' => 'required',
-        //     'personas' => 'required',
-        //]);
-
-        //$hoy = date('Y/m/d'); |date|date_format:Y/m/d    ,doesnt_start_with:-,0
-        //Solo los datos requeridos
+      
         $rules = [
             'fecha' => 'required',
             'hora' => 'required', //
@@ -71,11 +56,9 @@ class RestauranteUsersController extends Controller
         //mensajes que quiero mandar por si existen errores en la parte servidora
         $messages = [
             'fecha.required' => 'La fecha no puede estar en blanco',
-            // 'fecha.after_or_equal' => 'Debes elegir una a partir de hoy',
             'hora.required' => 'la hora no puede estar vacia',
             'personas.required' => 'Las personas no pueden estar vacias',
             'persona.integer' => 'Debes introducir un numero de personas',
-            //   'personas.doesnt_start_with' => 'Debe ir al menos una persona a la reserva',
         ];
         //metodo que necesita de estos 3 argumentos para realizar la validacion
         $this->validate($request, $rules, $messages);
@@ -84,7 +67,6 @@ class RestauranteUsersController extends Controller
 
         $res = new restaurante_users();
         $res->codigoRes = $codigoRes; //Codigo del restaurante
-        //$res->nombreRes = $nombreRes; Nombre del restaurante en la vista mostrarInfo
         try {
             $res->id = Auth::user()->id; //codigo del cliente
         } catch (Throwable $e) {
@@ -127,7 +109,7 @@ class RestauranteUsersController extends Controller
             ->Where('id', '=', $id)
             ->get();
 
-        return view('Reserva.borrarReserva', compact('reservas', 'usuario'));
+        return view('Reserva.borrarReserva', ['reservas'=>$reservas, 'usuario'=>$usuario]);
     }
 
     /**
@@ -154,7 +136,7 @@ class RestauranteUsersController extends Controller
                 ->get();
 
 
-            return view('Reserva.editarReserva', compact('reservas'));
+            return view('Reserva.editarReserva', ['reservas'=>$reservas]);
         } catch (Throwable $e) {
             return view('inicio.inicio')->with("fail", "Debes iniciar sesion para poder editar el perfil");
         }
@@ -219,7 +201,7 @@ class RestauranteUsersController extends Controller
                 ->where('hora', '=', $hora)
                 ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
                 ->get();
-            return view('Reserva.editarReserva', compact('reservas'))->with("fail", "No puede realizar mas de una reserva para el mismo dia y la misma hora");
+            return view('Reserva.editarReserva', ['reservas'=>$reservas])->with("fail", "No puede realizar mas de una reserva para el mismo dia y la misma hora");
         }
     }
 

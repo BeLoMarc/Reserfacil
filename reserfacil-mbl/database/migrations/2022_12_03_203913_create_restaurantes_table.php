@@ -14,22 +14,19 @@ return new class extends Migration
     public function up()
     {
         Schema::create('restaurantes', function (Blueprint $table) {
-             // $table->id();
-            //poner codigo gerente
             $table->id('codigoRestaurante');
             $table->unsignedBigInteger('id');
             $table->string('nombre');
-            $table->string('carta'); //Equivalente a BLOB binary
-            $table->string('foto'); //Equivalente a BLOB
-            $table->string('banner'); //Equivalente a BLOB
+            $table->string('carta'); 
+            $table->string('foto'); 
+            $table->string('banner'); 
             $table->string('direccion'); 
             $table->string('descripcion'); 
             $table->string('telefono', 12); //Equivalente a int
              $table->foreign('id')->references('id')->on('users');
 
             $table->timestamps();
-            //$table->primary('codigoRestaurante');
-            // $table->dropPrimary('Telefono');
+        
         });
     }
 
