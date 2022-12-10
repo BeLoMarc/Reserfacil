@@ -109,32 +109,7 @@ class DatabaseSeeder extends Seeder
             'model_type' => '\App\Models\User',
             'model_id' => 2
         ]);
-        /*
-         $gerente1 = \App\Models\User::create([
-             'nombre' => 'gerente1',
-             'apellido1' => 'Apellido 1 gerente 1',
-             'apellido2' => 'apellido 2 gerente 1',
-             'DNI' => '11111111A',
-             'email' => 'gerente1@gerente.com',
-             'password' => Hash::make(1234),
-             'direccion' => 'Direccion del gerente 1',
-             'telefono' => '111111119',
-             'isAdmin' => 1,
-         ]);
-        $gerente1->assignRole('gerente');
-        $gerente2 = \App\Models\User::create([
-            'nombre' => 'gerente2',
-            'apellido1' => 'Apellido 1 gerente 2',
-            'apellido2' => 'apellido 2 gerente 2',
-            'DNI' => '11111112A',
-            'email' => 'gerente2@gerente.com',
-            'password' => Hash::make(1234),
-            'direccion' => 'Direccion del gerente 2',
-            'telefono' => '211111119',
-            'isAdmin' => 1,
-        ]);
-        $gerente2->assignRole('gerente');
-        */
+
         /*
 |--------------------------------------------------------------------------
 | Seeder Clientes
@@ -156,11 +131,12 @@ class DatabaseSeeder extends Seeder
         ]);
         $cliente2->assignRole('cliente');
 
-   */     /*
+   */
+        /*
 |--------------------------------------------------------------------------
 | Seeder Restaurantes
 |--------------------------------------------------------------------------
-*/
+*//*
         DB::table('restaurantes')->insert([
             'id' => 1,
             'nombre' => 'Malenia',
@@ -181,7 +157,7 @@ class DatabaseSeeder extends Seeder
             'descripcion' => 'Come por lo que es tuyo',
             'telefono' => '123456777'
         ]);
-        /*
+        *//*
 |--------------------------------------------------------------------------
 | Seeder Restaurante_categorias
 |--------------------------------------------------------------------------

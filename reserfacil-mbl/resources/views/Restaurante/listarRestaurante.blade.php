@@ -19,10 +19,11 @@
             <thead>
                 <tr>
                     <th class="table-danger" scope="col">Codigo Restaurante</th>
-                    <th class="table-danger" scope="col">Codigo Gerente</th>
                     <th class="table-danger" scope="col">Nombre Restaurante</th>
+                    <th class="table-danger" scope="col">Codigo Gerente</th>
                     <th class="table-danger" scope="col">Carta</th>
                     <th class="table-danger" scope="col">Foto</th>
+                    <th class="table-danger" scope="col">banner</th>
                     <th class="table-danger" scope="col">Direccion</th>
                     <th class="table-danger" scope="col">Telefono</th>
                 </tr>
@@ -30,13 +31,14 @@
             @foreach ($restaurantes as $restaurante)
                 <tbody>
                     <tr>
-                        <th class="table-danger" scope="row">{{ $restaurante->codigoRestaurante }}</th>
-                        <!-- codigo Gerente -->
-                        <td class="table-secondary">{{ $restaurante->id }}</td>
+                        <th class="table-danger" scope="row">{{ $restaurante->codigoRestaurante }}</th>    
                         <td class="table-secondary">{{ $restaurante->nombre }}</td>
+                   
+                        <td class="table-secondary">{{ $restaurante->id }}</td> <!-- codigo Gerente -->
                         <td class="table-secondary">{{ $restaurante->carta }}</td>
                         <td class="table-secondary">{{ $restaurante->foto }}</td>
                         <td class="table-secondary">{{ $restaurante->direccion }}</td>
+                        <td class="table-secondary">{{ $restaurante->banner }}</td>
                         <td class="table-secondary">{{ $restaurante->telefono }}</td>
                         <td >
                             <form action="{{ route('restaurante.edit', $restaurante->codigoRestaurante) }}" method="post">

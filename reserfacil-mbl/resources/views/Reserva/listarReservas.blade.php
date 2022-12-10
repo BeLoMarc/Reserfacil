@@ -18,21 +18,21 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th class="table-danger"scope="col">codigoRestaurante</th>
-                    <th class="table-danger"scope="col">nombreRestaurante</th>
-                    <th class="table-danger"scope="col">codigoCliente</th>
+
+                    <th class="table-danger"scope="col">Nombre Restaurante</th>
+                    <th class="table-danger"scope="col">Codigo Cliente</th>
                     <th class="table-danger"scope="col">Nombre Cliente</th>
                     <th class="table-danger"scope="col">Fecha</th>
                     <th class="table-danger" scope="col">Hora</th>
                     <th class="table-danger"scope="col">Personas</th>
                 </tr>
 
-                
+
             </thead>
             @foreach ($reservas as $reserva)
                 <tbody>
                     <tr>
-                        <th class="table-secondary" scope="row">{{ $reserva->codigoRes }}</th>
+
                         <td class="table-secondary">{{ $reserva->nombreRestaurante }}</td>
                         <td class="table-secondary">{{ $reserva->id }}</td>
                         @foreach ($usuario as $usu)
@@ -66,12 +66,6 @@
                                 </button>
                             </form>
                         </td>
-
-
-                        <!--
-                                                <td><a href="{{ route('restaurante.edit') }}" class="btn btn-info">editar Restaurante</a></td>
-                                                <td><a href="{{ route('restaurante.show') }}" class="btn btn-danger">eliminar Restaurante</a></td>
-                                            -->
                     </tr>
             @endforeach
 

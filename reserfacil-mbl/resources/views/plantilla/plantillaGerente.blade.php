@@ -49,22 +49,6 @@
             </a>
         </div>
 
-
-        <div class="nav__category">
-            <a href="{{ route('cliente.logOut') }}" class="nav__category__link"><span
-                    class="nav__category__link__span lang" key="Clases">
-                    Cerrar Sesion</span></a>
-        </div>
-      
-       
-       
-        {{-- <div class="nav__category">
-            <a class="nav__category__link">
-                <span class="nav__category__link__span">
-                    Iniciar sesion gerente (F)</span>
-            </a>
-        </div>
---}}
         <div class="nav__category">
             <a href="{{ route('restaurante.create') }}" class="nav__category__link">
                 <span class="nav__category__link__span">
@@ -78,106 +62,18 @@
                     Mostrar Restaurantes</span>
             </a>
         </div>
+        <div class="nav__category">
+            <a href="{{ route('cliente.logOut') }}" class="nav__category__link"><span
+                    class="nav__category__link__span lang" key="Clases">
+                    Cerrar Sesion</span></a>
+        </div>
     </nav>
 
-    {{-- <div class=buscador>
-        <form>
-            <fieldset>
-                <legend>Elija su restaurante perfecto</legend>
-                <div class="mb-3">
-                    <label for="TextInput" class="form-label">Nombre del restaurante:</label>
-                    <input type="text" id="TextInput" class="form-control" placeholder="input">
-                </div>
-                <!-- CARGAR TODAS LAS LOCALIDADES -->
-                <div class="mb-3">
-                    <label for="Select" class="form-label">Localidad donde quiere comer:</label>
-                    <select id="Select" class="form-select">
-                        <option>select</option>
-                    </select>
-                </div>
-                <!-- CARGAR TODAS LAS CATEGORIAS -->
-                <div class="mb-3">
-                    <label for="Select" class="form-label">Tipo de comida del restaurante:</label>
-                    <select id="Select" class="form-select">
-                        <option>select</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </fieldset>
-        </form>
-    </div>
-   --}}
+
     <main class="main" id="main">
         @yield('formulario')
 
         @yield('restaurantes')
-        <!--
-        <div class="main__book">
-          <a class="main__book__link" href="https://www.amazon.es/Curse-Strahd-Dungeons-Sourcebook-Supplement/dp/0786965983"></a>
-          <figure class="main__book__cover">
-            <img alt="" src="../Multimedia/curseOfStrahd.jpg" />
-          </figure>
-          <div class="main__book__description">
-            <div class="main__book__description__title">
-              <div class="main__book__description__title__box">
-                <span class="main__book__description__title__box__name lang" key="Curse">Maldición De Stradh</span>
-                <div class="main__book__description__title__box__underline"></div>
-              </div>
-            </div>
-            <div class="main__book__description__tags">
-              <a class="main__book__description__tags__link sketchy" href="">DM</a>
-              <a class="main__book__description__tags__link lang" key="Misterio" href="">Misterio</a>
-              <a class="main__book__description__tags__link lang" key="Pago" href="">Pago</a>
-              <a class="main__book__description__tags__link lang" key="Modulo" href="">Modulo</a>
-    
-    
-            </div>
-            <div class="main__book__description__author">
-              <p class="main__book__description__author__label lang" key="Autor">Autor:</p>
-              <span class="main__book__description__author__name">Wizards of the Coast</span>
-    
-            </div>
-            <div class="main__book__description__synopsis">
-              <p class="main__book__description__synopsis__label  lang" key="Sinopsis">Sinopsis:</p>
-              <span class="main__book__description__synopsis__text lang" key="SinCur">Unidos por el destino, cubierta por
-                furiosas nubes de
-                tormenta
-                y recortada contra los viejos muros del castillo ravenloft...</span>
-            </div>
-          </div>
-        </div>
-        <div class="main__book">
-          <a class="main__book__link" href="Multimedia/phbCaratula.jpg"></a>
-          <figure class="main__book__cover">
-            <img alt="" src="../Multimedia/phbCaratula.jpg" />
-          </figure>
-          <div class="main__book__description">
-            <div class="main__book__description__title">
-              <div class="main__book__description__title__box">
-                <span class="main__book__description__title__box__name lang" key="PB">Manual Del Jugador</span>
-                <div class="main__book__description__title__box__underline"></div>
-              </div>
-            </div>
-            <div class="main__book__description__tags">
-              <a class="main__book__description__tags__link finish lang" key="Jugador" href="#">Jugador</a>
-              <a class="main__book__description__tags__link lang" key="Complemento" href="#">Complemento</a>
-              <a class="main__book__description__tags__link lang" key="Herramientas" href="#">Herramientas</a>
-              <a class="main__book__description__tags__link lang" key="desarrollo" href="#">desarrollo</a>
-    
-            </div>
-            <div class="main__book__description__author">
-              <p class="main__book__description__author__label lang" key="Autor">Autor:</p>
-              <span class="main__book__description__author__name">Wizard of the Coast</span>
-            </div>
-            <div class="main__book__description__synopsis">
-              <p class="main__book__description__synopsis__label lang" key="Sinopsis">Sinopsis:</p>
-              <span class="main__book__description__synopsis__text lang" key="PBSin">El Manual del jugador es el libro de
-                referencia esencial
-                para todos los jugadores de Dungeons & Dragons....</span>
-            </div>
-          </div>
-        </div>
-        -->
 
     </main>
 
@@ -254,14 +150,9 @@
                 <a href="https://www.facebook.com">
                     <img src="../Multimedia/facebook.png" />
                 </a>
-            </figure>
-            <figure class="footer__social__figure">
                 <a href="https://www.instagram.com">
-
                     <img src="../Multimedia/instagram.png" />
                 </a>
-            </figure>
-            <figure class="footer__social__figure">
                 <a href="https://twitter.com">
                     <img src="../Multimedia/twitter.png" />
                 </a>

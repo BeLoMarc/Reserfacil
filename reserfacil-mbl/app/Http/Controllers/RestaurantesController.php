@@ -191,7 +191,6 @@ class RestaurantesController extends Controller
         //creo un array donde guardare los codigos de las localidades donde esta el restaurante
         $locCheck = [];
         foreach ($localidadR as $loc) {
-
             $locCheck[] = $loc->codigoLoc; //guardo el codigo en este array para mantener los datos en el form
         }
         //me devuelve las categorias a las que pertenece el restaurante
@@ -296,29 +295,17 @@ class RestaurantesController extends Controller
             );
 
         $cr = $request->post('codigoRestaurante'); //aqui guardo el codigo del restaurante, lo recojo de un campo hidden
-        $locBorrar = DB::table('restaurante_localidad')->where('codigoRes', '=', $cr)->get(); //hago la busqueda de las localidades donde esta el restaurante a editar
+        //Elimino todas las localidades del restaurante para inserta las nuevas
 
-        $lc = $request->post('locs'); //guardo en un array las localidades donde digo que esta el restaurante
+        DB::table('restaurante_localidad')
+            ->where('codigoRes', '=', $cr)->delete();
 
-         //Elimino todas las localidades del restaurante para inserta las nuevas
-            
-                DB::table('restaurante_localidad') 
-                    ->where('codigoRes', '=', $cr)->delete();
-            
-        
-       
 
-        //OBJETO
-        $catBorrar = DB::table('restaurante_categorias')->where('codigoRes', '=', $cr)->get(); //buco todas las categorias a las que pertenecia el restaurante
-        //ARRAY
-        $cb = $request->post('cats'); //en este array estan las nuevas categorias donde quiero que se encuentre
-       //las comparo y si donde estaban antes ahora no, quiere decir que ya no pertenecen a dicha categoria
-           //por tanto las elimino
-                DB::table('restaurante_categorias')
-                  
-                    ->where('codigoRes', '=', $cr)->delete();
-            
-        
+        DB::table('restaurante_categorias')
+
+            ->where('codigoRes', '=', $cr)->delete();
+
+
 
         $var = $request->post('cats');
         foreach ($var as $cat => $c) { // recorro el array de categorias y las inserto

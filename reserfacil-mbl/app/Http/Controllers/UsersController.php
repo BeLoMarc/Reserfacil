@@ -235,12 +235,6 @@ class UsersController extends Controller
 
         }
         return redirect()->route("cliente.logginRegistroCliente")->with("fail", "No ha sido posible iniciar Sesion, correo o contraseña incorrectos");
-        // return back()->withErrors([
-        //    'email' => 'The provided credentials do not match our records.',
-        //])->onlyInput('email');
-        // } catch (Throwable $e) {
-        //   return redirect()->route("inicio.inicio")->with("fail", "No existe ningun email con asociado a un usuario");
-        //}
     }
 
     public function logOut(Request $request)
@@ -300,41 +294,41 @@ class UsersController extends Controller
         // ]);
 
         //Reglas de validacion
-        try {
-            $rules = [
-                'nombre' => 'required|max:200',
-                'email' => 'required|regex:/^.+@.+$/i', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
-                'telefono' => 'required|regex:/[0-9]{9}/|max:9',
-            ];
-            //mensajes que quiero mandar por si existen errores en la parte servidora
-            $messages = [
-                'nombre.required' => 'El nombre no puede estar en blanco',
-                'nombre.max' => 'La longitud del nombre no puede exceder los 200 caracteres',
-                'email.required' => 'El email no puede estar en blanco',
-                'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
-                'telefono.required' => 'El telefono no puede estar en blanco',
-                'telefono.regex' => 'El telefono debe escribirse con los digitos juntos asi: XXXXXXXXX',
-                'telefono.max' => 'El telefono debe No debe exceder los 9 caracteres',
-            ];
-            //metodo que necesita de estos 3 argumentos para realizar la validacion
-            $this->validate($request, $rules, $messages);
+        //        try {
+        $rules = [
+            'nombre' => 'required|max:200',
+            'email' => 'required|regex:/^.+@.+$/i', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
+            'telefono' => 'required|regex:/[0-9]{9}/|max:9',
+        ];
+        //mensajes que quiero mandar por si existen errores en la parte servidora
+        $messages = [
+            'nombre.required' => 'El nombre no puede estar en blanco',
+            'nombre.max' => 'La longitud del nombre no puede exceder los 200 caracteres',
+            'email.required' => 'El email no puede estar en blanco',
+            'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
+            'telefono.required' => 'El telefono no puede estar en blanco',
+            'telefono.regex' => 'El telefono debe escribirse con los digitos juntos asi: XXXXXXXXX',
+            'telefono.max' => 'El telefono debe No debe exceder los 9 caracteres',
+        ];
+        //metodo que necesita de estos 3 argumentos para realizar la validacion
+        $this->validate($request, $rules, $messages);
 
 
-            DB::table('users')
-                ->where('id', $id)
-                ->update(
-                    [
-                        // 'codigoGer' => $request->post('codigoGer'),
-                        'nombre' => $request->post('nombre'),
-                        'email' => $request->post('email'),
-                        'telefono' => $request->post('telefono')
-                    ]
-                );
+        DB::table('users')
+            ->where('id', $id)
+            ->update(
+                [
+                    // 'codigoGer' => $request->post('codigoGer'),
+                    'nombre' => $request->post('nombre'),
+                    'email' => $request->post('email'),
+                    'telefono' => $request->post('telefono')
+                ]
+            );
 
-            return redirect()->route("inicio.inicio")->with("success", "Actualizado con exito"); //este es el mensaje que aparece como $mensaje en listar restaurante
-        } catch (Throwable $e) {
-            return redirect()->route("cliente.edit")->with("fail", "Error en el servidor. Pongase en contacto con el administrador");
-        }
+        return redirect()->route("inicio.inicio")->with("success", "Actualizado con exito"); //este es el mensaje que aparece como $mensaje en listar restaurante
+        //    } catch (Throwable $e) {
+        //        return redirect()->route("cliente.edit")->with("fail", "Error en el servidor. Pongase en contacto con el administrador");
+        //   }
     }
 
     /**

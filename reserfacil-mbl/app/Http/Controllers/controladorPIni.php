@@ -27,16 +27,14 @@ class controladorPIni extends Controller
         $categoriasRestaurante = DB::table('restaurante_categorias')->get();
         $localidadesRestaurante =  DB::table('restaurante_localidad')->get();;
         //return view('index', compact('restaurantes', 'restauranteUnico', 'categorias', 'localidades', 'categoriasRestaurante', 'localidadesRestaurante'));
-    
-        return view('index', ['restaurantes' => $restaurantes, 'restauranteUnico' => $restauranteUnico, 'categorias' => $categorias, 'localidades' => $localidades, 'categoriasRestaurante' => $categoriasRestaurante, 'localidadesRestaurante' => $localidadesRestaurante]);
-    }
-    public function filtracion($r)
-    {
-        $f = 0;
-        if ($r == "v") {
-            $f = 1;
-        }
-        return $f;
+        $restauranteElegido = "v";
+        $localidadElegida = "v";
+        $categoriaElegida = "v";
+        return view('index', [
+            'restaurantes' => $restaurantes, 'restauranteUnico' => $restauranteUnico, 'categorias' => $categorias, 'localidades' => $localidades,
+            'categoriasRestaurante' => $categoriasRestaurante, 'localidadesRestaurante' => $localidadesRestaurante,
+            'restauranteElegido' => $restauranteElegido, 'localidadElegida' => $localidadElegida, 'categoriaElegida' => $categoriaElegida
+        ]);
     }
 
     public function Filtro(Request $request)
@@ -117,6 +115,13 @@ class controladorPIni extends Controller
 
         $categorias = DB::table('categorias')->orderBy('nombre')->get();
         $localidades = DB::table('localidad')->orderBy('nombre')->get();
-        return view('index', compact('restaurantes', 'restauranteUnico', 'categorias', 'localidades', 'categoriasRestaurante', 'localidadesRestaurante'));
+        $restauranteElegido = $request->post('restauranteSelect');
+        $localidadElegida = $request->post('localidadSelect');
+        $categoriaElegida = $request->post('categoriaSelect');
+        return view('index', [
+            'restaurantes' => $restaurantes, 'restauranteUnico' => $restauranteUnico, 'categorias' => $categorias, 'localidades' => $localidades,
+            'categoriasRestaurante' => $categoriasRestaurante, 'localidadesRestaurante' => $localidadesRestaurante,
+            'restauranteElegido' => $restauranteElegido, 'localidadElegida' => $localidadElegida, 'categoriaElegida' => $categoriaElegida
+        ]);
     }
 }

@@ -137,7 +137,6 @@ else {
     else {
         inputNombreRestaurante.addClass("is-valid");
         inputNombreRestaurante.removeClass("is-invalid");
-     ç
         nombreRestauranteCorrecto = true;
     }
 
@@ -197,7 +196,7 @@ else {
      
 
     } else if (!(/[0-9]{3}[0-9]{3}[0-9]{3}/g.test(inputTelefonoRestaurante.val())) || (Number.parseInt(
-        inputTelefonoRestaurante.val().length) > 11)) {
+        inputTelefonoRestaurante.val().length) > 9)) {
         inputTelefonoRestaurante.addClass("is-invalid");
         inputTelefonoRestaurante.removeClass("is-valid");
         $('#malTelefonoRestaurante').empty();

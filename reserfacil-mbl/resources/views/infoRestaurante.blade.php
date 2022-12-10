@@ -1,26 +1,28 @@
 <!-- TODO EL HTML QUE TENGA EN EL ARCHIVO PLANTILLA APARECERÁ AQUI -->
 @extends('plantilla/plantilla')
+@if ($mensaje = Session::get('fail'))
+    <div class="row">
+        <div class="col-sm-12">
 
+            <div class="alert alert-warning" role="alert">
+                {{ $mensaje }}
+            </div>
 
+        </div>
+    </div>
+@endif
+@if ($mensaje = Session::get('success'))
+    <div class="row">
+        <div class="col-sm-12">
+
+            <div class="alert alert-success" role="alert">
+                {{ $mensaje }}
+            </div>
+
+        </div>
+    </div>
+@endif
 @section('formulario')
-    <div class="row">
-        <div class="col-sm-12">
-            @if ($mensaje = Session::get('fail'))
-                <div class="alert alert-warning" role="alert">
-                    {{ $mensaje }}
-                </div>
-            @endif
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-12">
-            @if ($mensaje = Session::get('success'))
-                <div class="alert alert-success" role="alert">
-                    {{ $mensaje }}
-                </div>
-            @endif
-        </div>
-    </div>
     <div class="form">
         <p class="form__title">Eliga Restaurante</p>
         <form action="{{ route('inicio.filtrado') }}" method="POST">
@@ -110,19 +112,19 @@
                     <input type="hidden" value="{{ $restaurante->nombre }}" name="nombreR">
                     <div class="form__info">
                         <label class="form__info__label" for="fecha">Fecha:</label>
-                        <input class="form__controls" type="date" name="fecha" id="fechaReserva" />
+                        <input class="form__controls" type="date" name="fecha" id="fechaReserva" value="{{old('fecha')}}" />
                         <div id="malFechaReserva" class="invalid-feedback"></div>
                     </div>
 
 
                     <div class="form__info">
                         <label class="form__info__label" for="hora">Hora:</label>
-                        <input class="form__controls" type="time" name="hora" id="horaReserva" />
+                        <input class="form__controls" type="time" name="hora" id="horaReserva"  value="{{old('hora')}}" />
                         <div id="malHoraReserva" class="invalid-feedback"></div>
                     </div>
                     <div class="form__info">
                         <label class="form__info__label" for="hora">Personas:</label>
-                        <input class="form__controls" type="number" name="personas" id="personasReserva"
+                        <input class="form__controls" type="number" name="personas" id="personasReserva"  value="{{old('personas')}}"
                             placeholder="Numero de Personas" />
                         <div id="malPersonasReserva" class="invalid-feedback"></div>
                     </div>
@@ -134,7 +136,6 @@
                     </div>
 
 
-                    <!--      nos manda a la pantalla principal   -->
 
                 </form>
             </div>
@@ -154,18 +155,18 @@
                         <img src="../Multimedia/fotosRestaurante/{{ $restaurante->foto }}" class="d-block w-100"
                             alt="primera foto del restuarante">
                         <div class="carousel-caption d-none d-md-block">
-                            <h5>Primera foto del restaurante</h5>
+                            <h5>foto del restaurante</h5>
 
                         </div>
                     </div>
-                    <div class="carousel-item">
+                    {{-- <div class="carousel-item">
                         <img src="../Multimedia/fotosRestaurante/{{ $restaurante->foto }}" class="d-block w-100"
                             alt="segunda foto del restuarante">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>Segunda Foto del Restaurante</h5>
 
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="carousel-item">
                         <img src="../Multimedia/cartasRestaurante/{{ $restaurante->carta }}" class="d-block w-100"
                             alt="foto de la carta">
@@ -191,58 +192,63 @@
 
 
 
-    @foreach ($restaurantes as $restaurante)
+    @forelse ($restaurantes as $restaurante)
         <div class="main__book">
-            @if (Session::get('admin')===0)
-           <a class="main__book__link"
-           href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>   
-           @endif
+            @if (Session::get('admin') === 0)
+                <a class="main__book__link"
+                    href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>
+            @endif
             <figure class="main__book__cover">
                 <img alt="" src="../Multimedia/fotosRestaurante/{{ $restaurante->foto }}" />
             </figure>
             <div class="main__book__description">
                 <div class="main__book__description__title">
                     <div class="main__book__description__title__box">
-                        <span class="main__book__description__title__box__name lang"
-                            key="Curse">{{ $restaurante->nombre }}</span>
+                        <span class="main__book__description__title__box__name lang">{{ $restaurante->nombre }}</span>
                         <div class="main__book__description__title__box__underline"></div>
                     </div>
                 </div>
                 <div class="main__book__description__tags">
-                    @foreach ($categoriasRestaurante as $cr)
+
+
+                    @forelse ($categoriasRestaurante as $cr)
                         @if ($cr->codigoRes == $restaurante->codigoRestaurante)
-                            @foreach ($categorias as $cat)
+                            @forelse ($categorias as $cat)
                                 @if ($cr->codigoCat == $cat->codigoCategoria)
                                     <a class="main__book__description__tags__link lang"
                                         href="">{{ $cat->nombre }}</a>
                                 @endif
-                            @endforeach
+                            @empty
+                            @endforelse
                         @endif
-                    @endforeach
-                    @foreach ($localidadesRestaurante as $lc)
+                    @empty
+                    @endforelse
+                    @forelse ($localidadesRestaurante as $lc)
                         @if ($lc->codigoRes == $restaurante->codigoRestaurante)
-                            @foreach ($localidades as $loc)
+                            @forelse ($localidades as $loc)
                                 @if ($lc->codigoLoc == $loc->codigoLocalidad)
                                     <a class="main__book__description__tags__link sketchy"
                                         href="">{{ $loc->nombre }}</a>
                                 @endif
-                            @endforeach
+                            @empty
+                            @endforelse
                         @endif
-                    @endforeach
-
+                    @empty
+                    @endforelse
                 </div>
                 <div class="main__book__description__author">
-                    <p class="main__book__description__author__label lang" key="Autor">Telefono:</p>
+                    <p class="main__book__description__author__label lang">Telefono:</p>
                     <span class="main__book__description__author__name">{{ $restaurante->telefono }}</span>
 
                 </div>
                 <div class="main__book__description__synopsis">
-                    <p class="main__book__description__synopsis__label  lang" key="Sinopsis">Direccion:</p>
-                    <span class="main__book__description__synopsis__text lang"
-                        key="SinCur">{{ $restaurante->direccion }}</span>
+                    <p class="main__book__description__synopsis__label  lang">Direccion:</p>
+                    <span class="main__book__description__synopsis__text lang">{{ $restaurante->direccion }}</span>
                 </div>
             </div>
         </div>
-    @endforeach
+    @empty
+        <h1>NO HAY RESTAURANTES QUE CUMPLAN SUS CRITERIOS</h1>
+    @endforelse
     <script src="{{ asset('/JS/ValidarCrearReserva.js') }}"></script>
 @endsection

@@ -3,60 +3,62 @@
     <!-- es la url donde llamo al store de restaurantes-->
     <div class="form">
         @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <p>Corrige los siguientes errores:</p>
-            <ul>
-                @foreach ($errors->all() as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+            <div class="alert alert-danger">
+                <p>Corrige los siguientes errores:</p>
+                <ul>
+                    @foreach ($errors->all() as $message)
+                        <li>{{ $message }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form action="{{ route('restaurante.store') }}" method="POST" id="crearRestaurante" enctype="multipart/form-data">
             @csrf
             <!--<div class="mb-3"> SI SE PONE COMO DISABLED NO RECOGE EL VALOR PERO SI LO MUESTRA
-                                                                                                                            <label for="codigoGer" class="form-label">Codigo Gerente, ELIMINAR MAS TARDE, DEBE IR SINCRONIZADO:</label>
-                                                                                                                            <input type="text" class="form-control" id="" value="" name="codigoGer" >
-                                                                                                                        </div>-->
+                                                                                                                                    <label for="codigoGer" class="form-label">Codigo Gerente, ELIMINAR MAS TARDE, DEBE IR SINCRONIZADO:</label>
+                                                                                                                                    <input type="text" class="form-control" id="" value="" name="codigoGer" >
+                                                                                                                                </div>-->
             <div class="form__info">
                 <label for="carta" class="form__info__label">Imagen de la Carta:</label>
-                <input type="file" class="form__controls" id="fotoCarta" value="" name="carta">
+                <input type="file" class="form__controls" id="fotoCarta" value="{{ old('carta') }}" name="carta">
                 <div id="malCartaRestaurante" class="invalid-feedback"></div>
             </div>
             <div class="form__info">
                 <label for="foto" class="form__info__label">Imagen del restaurante:</label>
-                <input type="file" class="form__controls" value="" name="foto" id="fotoRestaurante">
+                <input type="file" class="form__controls" value="{{ old('foto') }}" name="foto"
+                    id="fotoRestaurante">
                 <div id="malFotoRestaurante" class="invalid-feedback"></div>
             </div>
             <div class="form__info">
                 <label for="banner" class="form__info__label">Banner del restaurante:</label>
-                <input type="file" class="form__controls" value="" name="banner" id="bannerRestaurante">
+                <input type="file" class="form__controls" value="{{ old('banner') }}" name="banner"
+                    id="bannerRestaurante">
                 <div id="malBannerRestaurante" class="invalid-feedback"></div>
             </div>
             <div class="form__info">
                 <label for="Nombre" class="form__info__label">Nombre:</label>
-                <input type="text" class="form__controls" placeholder="Nombre del restaurante" value=""
-                    name="nombre" id="nombreRestaurante">
+                <input type="text" class="form__controls" placeholder="Nombre del restaurante"
+                    value="{{ old('nombre') }}" name="nombre" id="nombreRestaurante">
                 <div id="malNombreRestaurante" class="invalid-feedback"></div>
             </div>
             <div class="form__info">
                 <label for="direccion" class="form__info__label">Direccion:</label>
-                <input type="text" class="form__controls" placeholder="Direccion del restaurante" value=""
-                    name="direccion" id="direccionRestaurante">
+                <input type="text" class="form__controls" placeholder="Direccion del restaurante"
+                    value="{{ old('direccion') }}" name="direccion" id="direccionRestaurante">
                 <div id="malDireccionRestaurante" class="invalid-feedback"></div>
 
             </div>
             <div class="form__info">
                 <label for="descripcion" class="form__info__label">Descripcion:</label>
-                <input type="text" class="form__controls" placeholder="descripcion del restaurante" value=""
-                    name="descripcion" id="descripcionRestaurante">
+                <input type="text" class="form__controls" placeholder="descripcion del restaurante"
+                    value="{{ old('descripcion') }}" name="descripcion" id="descripcionRestaurante">
                 <div id="malDescripcionRestaurante" class="invalid-feedback"></div>
 
             </div>
             <div class="form__info">
                 <label for="telefono" class="form__info__label">Telefono:</label>
-                <input type="text" class="form__controls" placeholder="XXXXXXXXX" value="" name="telefono"
-                    id="telefonoRestaurante">
+                <input type="text" class="form__controls" placeholder="XXXXXXXXX" value="{{ old('telefono') }}"
+                    name="telefono" id="telefonoRestaurante">
                 <div id="malTelefonoRestaurante" class="invalid-feedback"></div>
 
             </div>

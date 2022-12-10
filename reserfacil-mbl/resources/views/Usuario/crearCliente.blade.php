@@ -26,28 +26,28 @@
             @csrf
             <div class="form__info">
                 <label for="Nombre" class="form__info__label">Nombre:</label>
-                <input type="text" class="form__controls" placeholder="Nombre del usuario" value="" name="nombre"
+                <input type="text" class="form__controls" placeholder="Nombre del usuario" value="{{old('nombre')}}" name="nombre"
                     id="nombreCliente">
                 <div id="malNombreCliente" class="invalid-feedback"></div>
 
             </div>
             <div class="form__info">
                 <label for="email" class="form__info__label">Correo electronico:</label>
-                <input type="email" class="form__controls" value="" name="email" id="correoCliente"
+                <input type="email" class="form__controls" value="{{old('email')}}" name="email" id="correoCliente"
                     placeholder="Usuario@liamg.com">
                 <div id="malCorreoCliente" class="invalid-feedback"></div>
 
             </div>
             <div class="form__info">
                 <label for="password" class="form__info__label">Contraseña:</label>
-                <input type="password" class="form__controls" value="" name="password" id="contraseñaCliente"
+                <input type="password" class="form__controls" value="{{old('password')}}" name="password" id="contraseñaCliente"
                     placeholder="Contraseña">
                 <div id="malContraseñaCliente" class="invalid-feedback"></div>
 
             </div>
             <div class="form__info">
                 <label for="telefono" class="form__info__label">Telefono:</label>
-                <input type="text" class="form__controls" placeholder="XXXXXXXXX" value="" name="telefono"
+                <input type="text" class="form__controls" placeholder="XXXXXXXXX" value="{{old('telefono')}}" name="telefono"
                     id="telefonoCliente">
                 <div id="malTelefonoCliente" class="invalid-feedback"></div>
 

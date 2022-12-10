@@ -27,23 +27,12 @@ class RestauranteUsersController extends Controller
         $usuario = DB::table('users')
             ->Where('id', '=', $id)
             ->get();
-        // $reservas = restaurante_users::all(); Esta query es para que me saque todas las reservas,
-        // pero en el nombre del cliente pone el mismo porque coge el que esta actualmente loggeado
+
         $reservas = DB::table('restaurante_users')->where('id', '=', $id)->get(); //esto me da las reservas del cliente autenticado
         foreach ($reservas as $re) {
             return view('Reserva.listarReservas', compact('reservas', 'usuario'));
         }
         return redirect()->route("inicio.inicio")->with("fail", "No tienes ninguna Reserva a tu nombre"); //este es el mensaje que aparece como $mensaje 
-
-        //Esto esta hecho al recoger la sesion a mano
-        // if (Session::get('user') !== null) {
-        //     $a=Session::get('user');
-        //     $usuario = DB::table('users')->where('remember_token', 'LIKE', '%'.$a.'%')->get();
-        //     $reservas = DB::table('restaurante_users')->where('Id', '=', $usuario[0]->Id)->get(); //esto me da las reservas del cliente autenticado
-        // }
-
-
-
 
     }
 
@@ -134,8 +123,11 @@ class RestauranteUsersController extends Controller
             ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
             ->get();
 
+        $usuario = DB::table('users')
+            ->Where('id', '=', $id)
+            ->get();
 
-        return view('Reserva.borrarReserva', compact('reservas'));
+        return view('Reserva.borrarReserva', compact('reservas', 'usuario'));
     }
 
     /**
@@ -177,13 +169,6 @@ class RestauranteUsersController extends Controller
      */
     public function update(Request $request, $codres, $fecha, $hora)
     {
-        //solo muestra las del cliente que haya reservado.
-        //en el listar salen todas, pero a la hora de editar van ligadas con el usuario, por tanto el usuario de Id 5 no podria editar la de otro diferente
-        //  $request->validate([
-        //     'fecha' => 'required',
-        //    'hora' => 'required',
-        //  'personas' => 'required',
-        //]);
         try {
             $rules = [
                 'fecha' => 'required',
@@ -194,7 +179,7 @@ class RestauranteUsersController extends Controller
             //mensajes que quiero mandar por si existen errores en la parte servidora
             $messages = [
                 'fecha.required' => 'La fecha no puede estar en blanco',
-            
+
                 'hora.required' => 'la hora no puede estar vacia',
                 'personas.required' => 'Las personas no pueden estar vacias',
                 'persona.integer' => 'Debes introducir un numero de personas',
@@ -228,7 +213,6 @@ class RestauranteUsersController extends Controller
             } catch (Throwable $e) {
                 $id = Session::get('user');
             }
-
             $reservas = DB::table('restaurante_users')
                 ->where('codigoRes', '=', $codres)
                 ->where('fecha', '=', $fecha)
@@ -258,6 +242,6 @@ class RestauranteUsersController extends Controller
             ->where('hora', '=', $hora)
             ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
             ->delete();
-        return redirect()->route("inicio.inicio")->with("success", "Reserva cancelada con exito"); //este es el mensaje que aparece como $mensaje 
+        return redirect()->route("reserva.index")->with("success", "Reserva cancelada con exito"); //este es el mensaje que aparece como $mensaje 
     }
 }

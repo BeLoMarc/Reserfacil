@@ -28,14 +28,6 @@
 
 <body>
     <header class="header">
-        <!--
-      <a href="index.html">
-        <img src="../Multimedia/logo_transparent.png" alt="Logo" class="header__logo" />
-      </a>
-   -->
-
-
-
     </header>
 
 
@@ -48,7 +40,7 @@
                 <img class="nav__index__img" src="../Multimedia/logo1.png" alt="logo" />
             </a>
         </div>
-      
+
         @if (!Session::get('user'))
             <div class="nav__category">
                 <a href="{{ route('cliente.logginRegistroCliente') }}" class="nav__category__link">
@@ -56,16 +48,6 @@
                     </span></a>
             </div>
         @endif
-
-
-        @if (Session::get('user'))
-            <div class="nav__category">
-                <a href="{{ route('cliente.logOut') }}" class="nav__category__link"><span
-                        class="nav__category__link__span lang">
-                        Cerrar Sesion</span></a>
-            </div>
-        @endif
-
 
         @if (Session::get('admin') === 0)
             <div class="nav__category">
@@ -90,13 +72,14 @@
             </div>
         @endif
 
-        {{-- <div class="nav__category">
-            <a class="nav__category__link">
-                <span class="nav__category__link__span">
-                    Iniciar sesion gerente (F)</span>
-            </a>
-        </div>
-        --}}
+        @if (!Session::get('user'))
+            <div class="nav__category">
+                <a class="nav__category__link-a">
+                    <span class="nav__category__link__span lang"> Para poder ver los detalles de los restaurantes no
+                        olvides iniciar sesion
+                    </span></a>
+            </div>
+        @endif
         @if (Session::get('admin') === 1)
             <div class="nav__category">
                 <a href="{{ route('restaurante.create') }}" class="nav__category__link">
@@ -113,6 +96,14 @@
                 </a>
             </div>
         @endif
+        @if (Session::get('user'))
+            <div class="nav__category">
+                <a href="{{ route('cliente.logOut') }}" class="nav__category__link"><span
+                        class="nav__category__link__span lang">
+                        Cerrar Sesion</span></a>
+            </div>
+        @endif
+
     </nav>
 
     <main class="main" id="main">
@@ -120,7 +111,7 @@
         @yield('formulario')
 
         @yield('restaurantes')
-       
+
 
     </main>
 
@@ -195,17 +186,17 @@
         </div>
         <div class="footer__social">
             <figure class="footer__social__figure">
+
                 <a href="https://www.facebook.com">
                     <img src="../Multimedia/facebook.png" />
                 </a>
-            </figure>
-            <figure class="footer__social__figure">
+
+
                 <a href="https://www.instagram.com">
 
                     <img src="../Multimedia/instagram.png" />
                 </a>
-            </figure>
-            <figure class="footer__social__figure">
+
                 <a href="https://twitter.com">
                     <img src="../Multimedia/twitter.png" />
                 </a>

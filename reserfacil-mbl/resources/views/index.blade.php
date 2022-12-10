@@ -3,21 +3,27 @@
 
 
 
+
 @section('formulario')
-    <div class="row">
-        <div class="col-sm-12">
-            @if ($mensa = Session::get('success'))
+    @if ($mensa = Session::get('success'))
+        <div class="row">
+            <div class="col-sm-12">
                 <div class="alert alert-success" role="alert">
                     {{ $mensa }}
                 </div>
-            @endif
-            @if ($mensa = Session::get('fail'))
+            </div>
+        </div>
+    @endif
+    @if ($mensa = Session::get('fail'))
+        <div class="row">
+            <div class="col-sm-12">
+
                 <div class="alert alert-warning" role="alert">
                     {{ $mensa }}
                 </div>
-            @endif
+            </div>
         </div>
-    </div>
+    @endif
     <div class="form">
         <p class="form__title">Eliga Restaurante</p>
         <form action="{{ route('inicio.filtrado') }}" method="POST">
@@ -25,17 +31,18 @@
             <fieldset>
                 <legend>Elija su restaurante perfecto</legend>
 
-
-
                 <div class="form__info">
                     <label for="Select" class="form__info__label">Restaurante donde quieres comer:</label>
                     <select name="restauranteSelect" id="Select" class="form__controls">
                         <!-- Restaurante unico es un array de restaurantes donde estan ordenador por nombre y este no se repite -->
                         <option value="v">Cualquier Restaurante</option>
-                        @forelse ($restauranteUnico as $restaurante)
-                            <option value="{{ $restaurante->nombre }}">{{ $restaurante->nombre }}</option>
-                        @empty
-                        @endforelse
+                        @foreach ($restauranteUnico as $restaurante)
+                            @if ($restaurante->nombre == $restauranteElegido)
+                                <option value="{{ $restaurante->nombre }}" selected>{{ $restaurante->nombre }}</option>
+                            @else
+                                <option value="{{ $restaurante->nombre }}">{{ $restaurante->nombre }}</option>
+                            @endif
+                        @endforeach
 
                     </select>
                 </div>
@@ -45,10 +52,13 @@
                     <label for="Select" class="form__info__label">Localidad donde quiere comer:</label>
                     <select name="localidadSelect" id="Select" class="form__controls">
                         <option value="v">Cualquier localidad</option>
-                        @forelse ($localidades as $localidad)
-                            <option value="{{ $localidad->codigoLocalidad }}">{{ $localidad->nombre }}</option>
-                        @empty
-                        @endforelse
+                        @foreach ($localidades as $localidad)
+                            @if ($localidad->codigoLocalidad == $localidadElegida)
+                                <option value="{{ $localidad->codigoLocalidad }}" selected>{{ $localidad->nombre }}</option>
+                            @else
+                                <option value="{{ $localidad->codigoLocalidad }}">{{ $localidad->nombre }}</option>
+                            @endif
+                        @endforeach
                     </select>
                 </div>
 
@@ -57,10 +67,14 @@
                     <label for="Select" class="form__info__label">Tipo de comida del restaurante:</label>
                     <select name="categoriaSelect" id="Select" class="form__controls">
                         <option value="v">Cualquier categoria</option>
-                        @forelse ($categorias as $categoria)
-                            <option value="{{ $categoria->codigoCategoria }}">{{ $categoria->nombre }}</option>
-                        @empty
-                        @endforelse
+                        @foreach ($categorias as $categoria)
+                            @if ($categoria->codigoCategoria == $categoriaElegida)
+                                <option value="{{ $categoria->codigoCategoria }}" selected>{{ $categoria->nombre }}
+                                </option>
+                            @else
+                                <option value="{{ $categoria->codigoCategoria }}">{{ $categoria->nombre }}</option>
+                            @endif
+                        @endforeach
                     </select>
 
                 </div>
@@ -91,8 +105,8 @@
                     </div>
                 </div>
                 <div class="main__book__description__tags">
-                    
-                
+
+
                     @forelse ($categoriasRestaurante as $cr)
                         @if ($cr->codigoRes == $restaurante->codigoRestaurante)
                             @forelse ($categorias as $cat)
@@ -119,17 +133,17 @@
                     @endforelse
                 </div>
                 <div class="main__book__description__author">
-                    <p class="main__book__description__author__label lang" key="Autor">Telefono:</p>
+                    <p class="main__book__description__author__label lang">Telefono:</p>
                     <span class="main__book__description__author__name">{{ $restaurante->telefono }}</span>
 
                 </div>
                 <div class="main__book__description__synopsis">
-                    <p class="main__book__description__synopsis__label  lang" key="Sinopsis">Direccion:</p>
-                    <span class="main__book__description__synopsis__text lang"
-                        key="SinCur">{{ $restaurante->direccion }}</span>
+                    <p class="main__book__description__synopsis__label  lang">Direccion:</p>
+                    <span class="main__book__description__synopsis__text lang">{{ $restaurante->direccion }}</span>
                 </div>
             </div>
         </div>
     @empty
+        <h1>NO HAY RESTAURANTES QUE CUMPLAN SUS CRITERIOS</h1>
     @endforelse
 @endsection
