@@ -4,7 +4,7 @@ let horaCorrecto;
 let personasCorrecto;
 
 $('#main').on('click', '#botonCrearReserva', function (event) {
-   
+
     event.preventDefault();
     validarcrearReserva();
     if (correctoCrearReserva()) {
