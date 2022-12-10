@@ -162,7 +162,7 @@ class DatabaseSeeder extends Seeder
 | Seeder Restaurante_categorias
 |--------------------------------------------------------------------------
 */
-        DB::table('restaurante_categorias')->insert([
+  /*      DB::table('restaurante_categorias')->insert([
             'codigoRes' => 1,
             'codigoCat' => 2,
             //       'nombreCat' => 'italiano',
@@ -179,11 +179,11 @@ class DatabaseSeeder extends Seeder
             'codigoCat' => 2,
             //         'nombreCat' => 'italiano',
         ]);
-        /*
+        *//*
 |--------------------------------------------------------------------------
 | Seeder Restaurante_localidad
 |--------------------------------------------------------------------------
-*/
+*//*
         DB::table('restaurante_localidad')->insert([
             'codigoRes' => 1,
             'codigoLoc' => 2,
@@ -202,6 +202,6 @@ class DatabaseSeeder extends Seeder
             'codigoLoc' => 2,
             //          'nombre' => 'Albacete',
 
-        ]);
+        ]);*/
     }
 }
