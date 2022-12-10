@@ -145,6 +145,12 @@ tr{
     font-size: calc(0.5em + 1vw);
     padding: 16px 20px;
   }
+   .nav__category__link__span-a {
+     color: rgb(198, 189, 17);
+    text-decoration: none;
+    font-size: calc(0.5em + 1vw);
+    padding: 16px 20px;
+  }
   
   .nav__index:hover,
   .nav__category:hover {
