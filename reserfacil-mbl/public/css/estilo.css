@@ -137,7 +137,8 @@ tr{
     color: white;
     text-decoration: none;
   }
-  .nav__category__link-a {
+ 
+  .nav__category__link-a { 
     color: rgb(198, 189, 17);
     text-decoration: none;
   }
