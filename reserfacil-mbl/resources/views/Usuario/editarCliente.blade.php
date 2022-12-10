@@ -31,7 +31,7 @@
             @method('PUT')
             <!--El formulario mas correcto para actualizar es mediante el metodo put-->
             <div class="form__info">
-                <label for="email" class="form__info__label">Email <strong>*</strong>:</label>
+                <label for="email" class="form__info__label">Email:</label>
                 <input type="email" class="form__controls" value="{{ $cli->email }}" name="email"
                     id="correoCliente">
                 <div id="malCorreoLoggin" class="invalid-feedback"></div>
