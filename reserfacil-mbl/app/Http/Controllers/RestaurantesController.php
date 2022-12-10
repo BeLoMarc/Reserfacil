@@ -395,10 +395,12 @@ class RestaurantesController extends Controller
             ->orderBy('nombre')
             ->get();
         // saca todos los restaurantes ordenador por nombre
-      
+        $restauranteElegido = DB::table('restaurantes')
+            ->where('codigoRestaurante', $codigoRestaurante)
+            ->get();
         $categoriasRestaurante = DB::table('restaurante_categorias')->get();
         $localidadesRestaurante =  DB::table('restaurante_localidad')->get();;
-        return view('infoRestaurante', ['restaurantes'=>$restaurantes, 'restauranteUnico'=>$restauranteUnico, 'categorias'=>$categorias,
-         'localidades'=>$localidades, 'categoriasRestaurante'=>$categoriasRestaurante, 'localidadesRestaurante'=>$localidadesRestaurante]);
+        return view('infoRestaurante',  ['restaurantes'=>$restaurantes, 'restauranteUnico'=>$restauranteUnico, 'categorias'=>$categorias,
+        'localidades'=>$localidades, 'categoriasRestaurante'=>$categoriasRestaurante, 'localidadesRestaurante'=>$localidadesRestaurante,'restauranteElegido'=>$restauranteElegido]);
     }
 }
