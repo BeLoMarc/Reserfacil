@@ -147,8 +147,6 @@
                         aria-current="true" aria-label="Slide 1"></button>
                     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
                         aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -156,7 +154,6 @@
                             alt="primera foto del restuarante">
                         <div class="carousel-caption d-none d-md-block">
                             <h5>foto del restaurante</h5>
-
                         </div>
                     </div>
                    
