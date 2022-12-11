@@ -50,6 +50,8 @@ class UsersController extends Controller
             'email.regex' => 'El email debe escribirse manteniendo esta estructura: Nombre@ejemplo.com',
             'telefono.required' => 'El telefono no puede estar en blanco',
             'telefono.regex' => 'El telefono debe escribirse con los digitos juntos asi: XXXXXXXXX',
+            'telefono.max' => 'El no debe superar los 9 caracteres',
+
         ];
         //metodo que necesita de estos 3 argumentos para realizar la validacion
         $this->validate($request, $rules, $messages);

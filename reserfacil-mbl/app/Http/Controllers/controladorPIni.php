@@ -44,6 +44,7 @@ class controladorPIni extends Controller
                 ->join("restaurante_categorias", "restaurante_categorias.codigoRes", "=", "restaurantes.codigoRestaurante")
                 ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect'))
                 ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect'))
+                ->where('restaurantes.nombre', 'LIKE', '%' .  $request->post('restauranteSelect') . '%')
                 ->select("*")
                 ->get();
         } else if (($request->post('restauranteSelect') == "v") && ($request->post('localidadSelect') != "v") && ($request->post('categoriaSelect') != "v")) { //BUSCA LOCALIDAD Y CATEGORIA

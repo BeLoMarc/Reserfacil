@@ -97,7 +97,7 @@ function validarCrearCliente() {
         $('#malTelefonoCliente').append(`el telefono no puede estar vacio`);
 
     } else if (!(/[0-9]{3}[0-9]{3}[0-9]{3}/g.test(inputTelefonoCliente.val())) || (Number.parseInt(
-        inputTelefonoCliente.val().length) > 11)) {
+        inputTelefonoCliente.val().length) > 9)) {
             inputTelefonoCliente.addClass("is-invalid");
             inputTelefonoCliente.removeClass("is-valid");
         $('#malTelefonoCliente').empty();

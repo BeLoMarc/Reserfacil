@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('banner'); 
             $table->string('direccion'); 
             $table->string('descripcion'); 
-            $table->string('telefono', 12); //Equivalente a int
+            $table->string('telefono', 9); 
             $table->foreign('id')->references('id')->on('users');
             $table->timestamps();
         
