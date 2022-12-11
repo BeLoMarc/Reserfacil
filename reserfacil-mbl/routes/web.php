@@ -113,7 +113,7 @@ Route::get('/listar-reserva', [RestauranteUsersController::class, 'index'])->nam
 | editar Reserva
 |--------------------------------------------------------------------------
 */ 
-Route::post('/editar-reserva/{codigoRes?}&{fecha?}&{hora?}', [RestauranteUsersController::class, 'edit'])->name('reserva.edit'); //Formulario de Editar reserva
+Route::get('/editar-reserva/{codigoRes?}&{fecha?}&{hora?}', [RestauranteUsersController::class, 'edit'])->name('reserva.edit'); //Formulario de Editar reserva
 //es de tipo put porq asi lo especifico en el method del formulario que se encuentra en la vista editar
 Route::put('/guardar-reserva/{codigoRes?}&{fecha?}&{hora?}', [RestauranteUsersController::class, 'update'])->name('reserva.update'); //Actualiza la BBDD con la nueva reserva
 /*

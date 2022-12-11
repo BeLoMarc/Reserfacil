@@ -27,15 +27,14 @@
                 @foreach ($reservas as $reserva)
                     <tbody>
                         <tr>
-                            <th scope="row">{{ $reserva->nombreRestaurante }}</th>
-                            <td>{{ $reserva->id }}</td>
+                            <th scope="row" class="table-secondary">{{ $reserva->nombreRestaurante }}</th>
+                            <td class="table-secondary">{{ $reserva->id }}</td>
                             @foreach ($usuario as $usu)
                                 <td class="table-secondary"> {{ $usu->nombre }} </td>
                             @endforeach
-                            <td>{{ $reserva->fecha }}</td>
-                            <td>{{ $reserva->hora }}</td>
-                            <td>{{ $reserva->personas }}</td>
-                     
+                            <td class="table-secondary">{{ $reserva->fecha }}</td>
+                            <td class="table-secondary">{{ $reserva->hora }}</td>
+                            <td class="table-secondary">{{ $reserva->personas }}</td>
                             <td>
 
                                 <a href="{{ route('reserva.index') }}" class="btn btn-info">Mostrar Reservas</a>
