@@ -95,7 +95,7 @@
                     href="{{ route('restaurante.mostarInfoRestaurante', $restaurante->codigoRestaurante) }}"></a>
             @endif
             <figure class="main__book__cover">
-                <img alt="" src="../public/Multimedia/fotosRestaurante/{{ $restaurante->foto }}" />
+                <img alt="" src="../Multimedia/fotosRestaurante/{{ $restaurante->foto }}" />
             </figure>
             <div class="main__book__description">
                 <div class="main__book__description__title">
