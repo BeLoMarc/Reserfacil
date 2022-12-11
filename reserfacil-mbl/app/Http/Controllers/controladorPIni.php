@@ -42,58 +42,58 @@ class controladorPIni extends Controller
             $restaurantes = restaurantes
                 ::join("restaurante_localidad", "restaurante_localidad.codigoRes", "=", "restaurantes.codigoRestaurante")
                 ->join("restaurante_categorias", "restaurante_categorias.codigoRes", "=", "restaurantes.codigoRestaurante")
-                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) //Codigo de la localidad(Toledo)
-                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect')) //Codigo de la categoria(Oriental)
+                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect'))
+                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect'))
                 ->select("*")
                 ->get();
         } else if (($request->post('restauranteSelect') == "v") && ($request->post('localidadSelect') != "v") && ($request->post('categoriaSelect') != "v")) { //BUSCA LOCALIDAD Y CATEGORIA
             $restaurantes = restaurantes
                 ::join("restaurante_localidad", "restaurante_localidad.codigoRes", "=", "restaurantes.codigoRestaurante")
                 ->join("restaurante_categorias", "restaurante_categorias.codigoRes", "=", "restaurantes.codigoRestaurante")
-                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) //Codigo de la localidad(Toledo)
-                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect')) //Codigo de la categoria(Oriental)
+                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) 
+                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect'))
                 ->select("*")
                 ->get();
         } else if (($request->post('restauranteSelect') != "v") && ($request->post('localidadSelect') != "v") && ($request->post('categoriaSelect') == "v")) { //BUSCA LOCALIDAD Y RESTAURANTE
             $restaurantes = restaurantes
                 ::join("restaurante_localidad", "restaurante_localidad.codigoRes", "=", "restaurantes.codigoRestaurante")
-                ->where('restaurantes.nombre', 'LIKE', '%' .  $request->post('restauranteSelect') . '%') //restaurante de nombre malenia
-                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) //Codigo de la localidad(Toledo)
+                ->where('restaurantes.nombre', 'LIKE', '%' .  $request->post('restauranteSelect') . '%')
+                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) 
                 ->select("*")
                 ->get();
         } else if (($request->post('restauranteSelect') != "v") && ($request->post('localidadSelect') == "v") && ($request->post('categoriaSelect') != "v")) { //BUSCA RESTAURANTE Y CATEGORIA
             $restaurantes = restaurantes
                 ::join("restaurante_categorias", "restaurante_categorias.codigoRes", "=", "restaurantes.codigoRestaurante")
-                ->where('restaurantes.nombre', 'LIKE', '%' .  $request->post('restauranteSelect') . '%') //restaurante de nombre malenia
-                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect')) //Codigo de la categoria(Oriental)
+                ->where('restaurantes.nombre', 'LIKE', '%' .  $request->post('restauranteSelect') . '%') 
+                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect')) 
                 ->select("*")
                 ->get();
         } else if (($request->post('restauranteSelect') != "v") && ($request->post('localidadSelect') == "v") && ($request->post('categoriaSelect') == "v")) { //BUSCA POR RESTAURANTE
             $restaurantes = DB::table('restaurantes')
-                ->where('restaurantes.nombre', 'LIKE', '%' .  $request->post('restauranteSelect') . '%') //restaurante de nombre malenia
+                ->where('restaurantes.nombre', 'LIKE', '%' .  $request->post('restauranteSelect') . '%')
                 ->get();
         } else if (($request->post('restauranteSelect') == "v") && ($request->post('localidadSelect') != "v") && ($request->post('categoriaSelect') != "v")) { //BUSCA POR LOCALIDAD Y CATEGORIA
             $restaurantes = restaurantes
                 ::join("restaurante_localidad", "restaurante_localidad.codigoRes", "=", "restaurantes.codigoRestaurante")
                 ->join("restaurante_categorias", "restaurante_categorias.codigoRes", "=", "restaurantes.codigoRestaurante")
-                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) //Codigo de la localidad(Toledo)
-                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect')) //Codigo de la categoria(Oriental)
+                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) 
+                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect')) 
                 ->select("*")
                 ->get();
         } else if (($request->post('restauranteSelect') == "v") && ($request->post('localidadSelect') != "v") && ($request->post('categoriaSelect') == "v")) { //BUSCA POR LOCALIDAD
             $restaurantes = restaurantes
                 ::join("restaurante_localidad", "restaurante_localidad.codigoRes", "=", "restaurantes.codigoRestaurante")
-                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) //Codigo de la localidad(Toledo)
+                ->where('restaurante_localidad.codigoLoc', '=', $request->post('localidadSelect')) 
                 ->select("*")
                 ->get();
         } else if (($request->post('restauranteSelect') == "v") && ($request->post('localidadSelect') == "v") && ($request->post('categoriaSelect') != "v")) { //BUSCA CATEGORIA
             $restaurantes = restaurantes
                 ::join("restaurante_categorias", "restaurante_categorias.codigoRes", "=", "restaurantes.codigoRestaurante")
-                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect')) //Codigo de la categoria(Oriental)
+                ->where('restaurante_categorias.codigoCat', '=', $request->post('categoriaSelect')) 
                 ->select("*")
                 ->get();
         } else if (($request->post('restauranteSelect') == "v") && ($request->post('localidadSelect') == "v") && ($request->post('categoriaSelect') == "v")) { //BUSCA TODOS
-            $restaurantes = DB::table('restaurantes')->orderBy('nombre')->get(); //Devuelve los nombres de los restaurantes
+            $restaurantes = DB::table('restaurantes')->orderBy('nombre')->get(); //Devuelve todos los restaurantes ordenados por nombre
 
         }
         $categoriasRestaurante = restaurantes

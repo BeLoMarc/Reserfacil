@@ -371,12 +371,13 @@ class RestaurantesController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    //public function destroy(restaurante $restaurante)
     public function destroy($codigoRestaurante)
     {
         DB::table('restaurante_localidad')->where('codigoRes', '=', $codigoRestaurante)->delete(); //primero se deben borrar las tablas con dependencia
 
         DB::table('restaurante_categorias')->where('codigoRes', '=', $codigoRestaurante)->delete(); //primero se deben borrar las tablas con dependencia
+
+        DB::table('restaurante_users')->where('codigoRes', '=', $codigoRestaurante)->delete(); //primero se deben borrar las tablas con dependencia
 
         DB::table('restaurantes')->where('codigoRestaurante', '=', $codigoRestaurante)->delete(); //se borra la tabla padre
 

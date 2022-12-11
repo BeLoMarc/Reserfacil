@@ -159,14 +159,7 @@
 
                         </div>
                     </div>
-                    {{-- <div class="carousel-item">
-                        <img src="../Multimedia/fotosRestaurante/{{ $restaurante->foto }}" class="d-block w-100"
-                            alt="segunda foto del restuarante">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Segunda Foto del Restaurante</h5>
-
-                        </div>
-                    </div> --}}
+                   
                     <div class="carousel-item">
                         <img src="../Multimedia/cartasRestaurante/{{ $restaurante->carta }}" class="d-block w-100"
                             alt="foto de la carta">
@@ -188,9 +181,6 @@
             </div>
         </div>
     @endforeach
-
-
-
 
     @forelse ($restaurantes as $restaurante)
         <div class="main__book">
