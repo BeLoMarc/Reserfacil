@@ -17,10 +17,10 @@ $('#main').on('click', '#botonCrearCliente', function (event) {
 
 function validarCrearCliente() {
     //ASi recojo los valores de los inputs
-    let inputNombreCliente = $('#nombreCliente'); //
-    let inputCorreoCliente = $('#correoCliente'); //
-    let inputContraseniaCliente = $('#contraseñaCliente'); //
-    let inputTelefonoCliente = $('#telefonoCliente'); //
+    let inputNombreCliente = $('#nombreCliente'); 
+    let inputCorreoCliente = $('#correoCliente'); 
+    let inputContraseniaCliente = $('#contraseñaCliente'); 
+    let inputTelefonoCliente = $('#telefonoCliente'); 
     
    
     /**
@@ -88,14 +88,13 @@ function validarCrearCliente() {
     }
 
     /**
-     * INICIO VALIDACION TELEFONO RESTAURANTE
+     * INICIO VALIDACION TELEFONO CLIENTE
      */
     if (!inputTelefonoCliente.val()) {
         inputTelefonoCliente.addClass("is-invalid");
         inputTelefonoCliente.removeClass("is-valid");
         $('#malTelefonoCliente').empty();
         $('#malTelefonoCliente').append(`el telefono no puede estar vacio`);
-        //inputtelefonoTienda.closest(".invalid-feedback").html("No puede estar Vacio el Nombre de la tienda")
 
     } else if (!(/[0-9]{3}[0-9]{3}[0-9]{3}/g.test(inputTelefonoCliente.val())) || (Number.parseInt(
         inputTelefonoCliente.val().length) > 11)) {
@@ -108,8 +107,7 @@ function validarCrearCliente() {
         inputTelefonoCliente.addClass("is-valid");
         inputTelefonoCliente.removeClass("is-invalid");
         $('#buenTelefonoCliente').empty();
-        //$('#buenTelefonoRestaurante').append(`El telefono de la tienda esta correcto`);
-        //inputtelefonoTienda.closest(".valid-feedback").html("El telefono de la tienda esta correcto")
+        
         telefonoClienteCorrecto = true;
     }
 

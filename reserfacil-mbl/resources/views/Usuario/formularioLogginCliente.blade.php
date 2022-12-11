@@ -1,15 +1,14 @@
 @extends('plantilla/plantilla')
 @section('formulario')
-    <div class="row">
-        @if ($mensaje = Session::get('fail'))
+
+    @if ($mensaje = Session::get('fail'))
+        <div class="row">
             <div class="alert alert-warning" role="alert">
                 {{ $mensaje }}
             </div>
-        @endif
-    </div>
-    </div>
-    <!-- es la url donde llamo al store de restaurantes
-                            <form action="{{ route('cliente.store') }}" method="POST" enctype="multipart/form-data"> -->
+        </div>
+    @endif
+
 
     <div class="form">
         @if (count($errors) > 0)
@@ -44,9 +43,6 @@
                 <a class="form__info__button other" href="{{ route('inicio.inicio') }}">Pagina Principal</a>
             </div>
 
-            {{-- <button type="submit" class="btn btn-primary" id="botonInicioSesion">Iniciar Sesion</button> --}}
-            <!--      nos manda a la pantalla principal   -->
-            {{-- <a href="{{ route('inicio.inicio') }}" class="btn btn-info">Pagina Principal</a> --}}
         </form>
     </div>
     <script src="{{ asset('/JS/ValidarLoggin.js') }}"></script>

@@ -15,9 +15,9 @@ $('#main').on('click', '#botonCrearReserva', function (event) {
 
 function validarcrearReserva() {
     //ASi recojo los valores de los inputs
-    let inputFechaReserva = $('#fechaReserva'); //
-    let inputHoraReserva = $('#horaReserva'); //
-    let inputPersonasReserva = $('#personasReserva'); //
+    let inputFechaReserva = $('#fechaReserva'); 
+    let inputHoraReserva = $('#horaReserva'); 
+    let inputPersonasReserva = $('#personasReserva'); 
 
 
     /**

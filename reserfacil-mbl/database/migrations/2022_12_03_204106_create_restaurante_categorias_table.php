@@ -16,11 +16,9 @@ return new class extends Migration
         Schema::create('restaurante_categorias', function (Blueprint $table) {
             $table->unsignedBigInteger('codigoRes');
             $table->unsignedBigInteger('codigoCat');
-       //     $table->string('nombreCat',30);
             $table->primary(array('codigoRes','codigoCat'));
             $table->foreign('codigoRes')->references('codigoRestaurante')->on('restaurantes');
             $table->foreign('codigoCat')->references('codigoCategoria')->on('categorias');
-          //  $table->rememberToken();
             $table->timestamps();
         });
     }

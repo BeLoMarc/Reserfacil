@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('localidad', function (Blueprint $table) {
             $table->id('codigoLocalidad');
-            //          $table->primary('codigoLocalidad');
             $table->string('nombre', 30);
             $table->integer('cantidadRestaurantes');
             $table->timestamps();

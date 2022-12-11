@@ -107,30 +107,30 @@
                 <div class="main__book__description__tags">
 
 
-                    @forelse ($categoriasRestaurante as $cr)
+                    @foreach ($categoriasRestaurante as $cr)
                         @if ($cr->codigoRes == $restaurante->codigoRestaurante)
-                            @forelse ($categorias as $cat)
+                            @foreach ($categorias as $cat)
                                 @if ($cr->codigoCat == $cat->codigoCategoria)
                                     <a class="main__book__description__tags__link lang"
                                         href="">{{ $cat->nombre }}</a>
                                 @endif
-                            @empty
-                            @endforelse
+                    
+                            @endforeach
                         @endif
-                    @empty
-                    @endforelse
-                    @forelse ($localidadesRestaurante as $lc)
+                    
+                    @endforeach
+                    @foreach ($localidadesRestaurante as $lc)
                         @if ($lc->codigoRes == $restaurante->codigoRestaurante)
-                            @forelse ($localidades as $loc)
+                            @foreach ($localidades as $loc)
                                 @if ($lc->codigoLoc == $loc->codigoLocalidad)
                                     <a class="main__book__description__tags__link sketchy"
                                         href="">{{ $loc->nombre }}</a>
                                 @endif
-                            @empty
-                            @endforelse
+                    
+                            @endforeach
                         @endif
-                    @empty
-                    @endforelse
+                    
+                    @endforeach
                 </div>
                 <div class="main__book__description__author">
                     <p class="main__book__description__author__label lang">Telefono:</p>

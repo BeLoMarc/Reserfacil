@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Auth\Events\Registered;
-use PhpParser\Node\Stmt\TryCatch;
-use App\Exceptions\Handler;
-use Throwable;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
@@ -63,7 +59,6 @@ class UsersController extends Controller
 
         $users = DB::table('users')->count();
         $users = $users + 1;
-        //mas facil para asignar roles
         $cliente = User::create([
             'id' => $users,
             'nombre' => $request->post('nombre'),
@@ -86,7 +81,7 @@ class UsersController extends Controller
             $request->session()->regenerate();
             Session::put('user', Auth::user()->id);
             Session::put('admin', Auth::user()->isAdmin);
-           
+    
             Session::save();
         }
          return redirect()->route("inicio.inicio")->with("success", "Disfruta de nuestra aplicacion D.ª" . Auth::user()->nombre . ", perteneces al grupo " . $cliente->getRoleNames());
@@ -99,9 +94,6 @@ class UsersController extends Controller
 
     public function autenticarCliente(LoginRequest $request)
     {
-
-        //   try {
-        //Reglas de validacion  required|regex:/^.+@.+$/i|
         $rules = [
             'password' => 'required|max:200',
             'email' => 'exists:users,email', //es un email requerido, debe pasar por la regex,Debe existir en la BBDD', //es un email requerido, debe pasar por la regex, no valido si tiene que existir porque si lo quiere mantener, saltara la excepcion
@@ -124,8 +116,6 @@ class UsersController extends Controller
         ];
         if (Auth::attempt($credentials)) {
 
-
-            $request->authenticate();
             $request->session()->regenerate();
             Session::put('user', Auth::user()->id);
             Session::put('admin', Auth::user()->isAdmin);
@@ -147,8 +137,6 @@ class UsersController extends Controller
 
         Session::forget('admin');
 
-        Auth::guard('web')->logout();
-
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
@@ -162,7 +150,7 @@ class UsersController extends Controller
      * @param  \App\Models\User  $User
      * @return \Illuminate\Http\Response
      */
-    public function editCliente(User $User)
+    public function editCliente()
     {
         $cliente = DB::table('users')->where('id', '=',  Session::get('user'))->get();
 

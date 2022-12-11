@@ -17,11 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('codigoRes');
             $table->unsignedBigInteger('id');
             $table->date('fecha');
-            //https://stackoverflow.com/questions/36171186/how-to-insert-the-value-entered-in-input-type-time-into-database
-            $table->string('hora');//$variableConversionInsertar = date('h:i A', strtotime($variableRecogidaInputTime));
+            $table->string('hora');
             $table->integer('personas');
-            $table->string('nombreRestaurante');
-            $table->primary(array('codigoRes', 'id','fecha','hora'));//ultimo cambio añadir hora
+            $table->string('nombreRestaurante');//El nombre del Restaurante no es necesario pero evito dar demasiadas vueltas para sacarlo
+            $table->primary(array('codigoRes', 'id','fecha','hora'));
             $table->foreign('codigoRes')->references('codigoRestaurante')->on('restaurantes');
             $table->foreign('id')->references('id')->on('users');
 

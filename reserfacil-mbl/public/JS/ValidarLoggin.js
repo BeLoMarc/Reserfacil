@@ -14,8 +14,8 @@ $('#main').on('click', '#botonInicioSesion', function (event) {
 
 function validarLoggin() {
     //ASi recojo los valores de los inputs
-    let inputCorreoLoggin = $('#correoLoggin'); //
-    let inputContraseniaLoggin = $('#contraseniaLoggin'); //
+    let inputCorreoLoggin = $('#correoLoggin'); 
+    let inputContraseniaLoggin = $('#contraseniaLoggin'); 
 
 
 
@@ -55,9 +55,6 @@ function validarLoggin() {
 
         contraseñaCorrecto = true;
     }
-
-    
-
 
 }
 

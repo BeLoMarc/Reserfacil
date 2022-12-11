@@ -24,8 +24,9 @@ class RestaurantesController extends Controller
         } catch (Throwable $e) {
             $id = Session::get('user');
         }
+        //Compruebo si el gerente tiene restaurantes para Administrar
         $restaurantes = DB::table('restaurantes')->where('id', '=', $id)->get();
-        //$restaurantes = restaurantes::all();
+
         foreach ($restaurantes as $re) {
             return view('Restaurante.listarRestaurante', ['restaurantes'=>$restaurantes]);
         }
@@ -102,11 +103,11 @@ class RestaurantesController extends Controller
 
             $carta = $request->file("carta");
             //esta linea con el slug me cambia el nombre de la foto (que puede ser raro como solo numero o caracteres extraños)
-            // y añado la cadena carta-de con el nombre del restaurante y lo sobreescribo para que quede mas bonito
+            // y añado la cadena carta-de con el nombre del restaurante y lo sobreescribo para que quede mas legible
             //y muestro la extension
             $nombreimagencar = Str::slug("carta-de-" . $request->nombre) . "." . $carta->guessExtension();
             $ruta = public_path("Multimedia/cartasRestaurante/");
-            //$imagen->move($ruta,$nombreimagen);
+            
             copy($carta->getRealPath(), $ruta . $nombreimagencar);
             $res->carta = $nombreimagencar;
         }
@@ -114,7 +115,7 @@ class RestaurantesController extends Controller
             $foto = $request->file("foto");
             $nombreimagenfoto = Str::slug($request->nombre) . "." . $foto->guessExtension();
             $ruta = public_path("Multimedia/fotosRestaurante/");
-            //$imagen->move($ruta,$nombreimagen);
+            
             copy($foto->getRealPath(), $ruta . $nombreimagenfoto);
             $res->foto = $nombreimagenfoto;
         }
@@ -124,7 +125,6 @@ class RestaurantesController extends Controller
             $banner = $request->file("banner");
             $nombreimagenBanner = Str::slug("banner-de-" . $request->nombre) . "." . $carta->guessExtension();
             $ruta = public_path("Multimedia/bannerRestaurante/");
-            //$imagen->move($ruta,$nombreimagen);
             copy($banner->getRealPath(), $ruta . $nombreimagenBanner);
             $res->banner = $nombreimagenBanner;
         }
@@ -168,7 +168,7 @@ class RestaurantesController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    //public function show(restaurante $restaurante)
+    
     public function show($codigoRestaurante)
     {
         $restaurantes = DB::table('restaurantes')->where('codigoRestaurante', '=', $codigoRestaurante)->get();
@@ -181,7 +181,7 @@ class RestaurantesController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    // public function edit(restaurante $restaurante)
+    
     public function edit($codigoRestaurante)
     {
         //me devuelve un objeto restaurante y me busca por codigo restaurante
@@ -214,7 +214,6 @@ class RestaurantesController extends Controller
      * @param  \App\Models\restaurante  $restaurante
      * @return \Illuminate\Http\Response
      */
-    // public function update(Request $request, restaurante $restaurante)
     public function update(Request $request, $codigoRestaurante)
     {
 
@@ -260,9 +259,9 @@ class RestaurantesController extends Controller
             //y muestro la extension
             $nombreimagencar = Str::slug("carta-de-" . $request->nombre) . "." . $carta->guessExtension();
             $ruta = public_path("Multimedia/cartasRestaurante/");
-            //$imagen->move($ruta,$nombreimagen);
+         
             copy($carta->getRealPath(), $ruta . $nombreimagencar);
-            // $restaurante->carta = $nombreimagen;
+         
         }
 
         if ($request->hasFile("foto")) {
@@ -276,14 +275,14 @@ class RestaurantesController extends Controller
             $banner = $request->file("banner");
             $nombreimagenBanner = Str::slug("banner-de-" . $request->nombre) . "." . $carta->guessExtension();
             $ruta = public_path("Multimedia/bannerRestaurante/");
-            //$imagen->move($ruta,$nombreimagen);
+            
             copy($banner->getRealPath(), $ruta . $nombreimagenBanner);
         }
         DB::table('restaurantes')
             ->where('codigoRestaurante', $codigoRestaurante)
             ->update(
                 [
-                    // 'codigoGer' => $request->post('codigoGer'),
+                    
                     'nombre' => $request->post('nombre'),
                     'carta' => $nombreimagencar,
                     'foto' => $nombreimagenfoto,
@@ -386,7 +385,7 @@ class RestaurantesController extends Controller
 
     public function mostarInfoRestaurante($codigoRestaurante) //codigo del restaurante elegido
     {
-        // $restauranteUnico = DB::table('restaurantes')->distinct()->get('nombre');
+        
         $restauranteUnico = DB::table('restaurantes')->select('nombre')->distinct()->get();
         $categorias = DB::table('categorias')->orderBy('nombre')->get();
         $localidades = DB::table('localidad')->orderBy('nombre')->get();

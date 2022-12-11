@@ -24,8 +24,6 @@ return new class extends Migration
             $table->string('direccion')->nullable();// solo gerente
             $table->string('telefono',12);// ambos tipos
             $table->integer('isAdmin')->default(0);// ambos tipos
-            
-           
             $table->rememberToken();
             $table->timestamps();
         });

@@ -237,12 +237,12 @@ function validarcrearRestaurante() {
         $('#malCheckLocalidades').empty();
         $('#malCheckLocalidades').append(`Debes elegir al menos una categoria`);
 
-        //inputCIFTienda.closest(".invalid-feedback").html("No puede estar Vacio la descripcion")
+        
     } else {
         $('[name="locs[]"]').addClass("is-valid");
         $('[name="locs[]"]').removeClass("is-invalid");
         $('#buenCheckLocalidades').empty();
-        //$('#buenCifTienda').append(`La categoria cumple los requisitos`);
+        
         checkLocalidadesCorrecto = true;
     }
 

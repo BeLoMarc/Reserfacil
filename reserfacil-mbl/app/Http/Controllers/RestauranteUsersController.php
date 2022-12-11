@@ -74,10 +74,8 @@ class RestauranteUsersController extends Controller
         }
 
         $res->fecha = $request->post('fecha'); //fecha
-        //parseamos la hora a varchar
-        //  $horaBien = date('h:i A', strtotime($request->post('hora'))); //hora
-        //  $res->hora = $horaBien;
-        $res->hora = $request->post('hora'); //DESCOMENTAR LAS DOS DE ARRIBA SU FALLA
+      
+        $res->hora = $request->post('hora'); 
         $res->personas = $request->post('personas'); //cantidad de personas
         $res->nombreRestaurante = $request->post('nombreR');
         $res->save(); //este metodo lo guarda
@@ -102,7 +100,7 @@ class RestauranteUsersController extends Controller
         $reservas = DB::table('restaurante_users')
             ->where('codigoRes', '=', $codres)
             ->where('fecha', '=', $fecha)
-            ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
+            ->where('id', '=', $id)
             ->get();
 
         $usuario = DB::table('users')
@@ -132,7 +130,7 @@ class RestauranteUsersController extends Controller
                 ->where('codigoRes', '=', $codres)
                 ->where('fecha', '=', $fecha)
                 ->where('hora', '=', $hora)
-                ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
+                ->where('id', '=', $id) 
                 ->get();
 
 
@@ -179,7 +177,7 @@ class RestauranteUsersController extends Controller
                 ->where('codigoRes', '=', $codres)
                 ->where('fecha', '=', $fecha)
                 ->where('hora', '=', $hora)
-                ->where('id', '=', $id) //otra opcion es pasar por parametro la Id
+                ->where('id', '=', $id) 
                 ->update([
                     'fecha' => $request->post('fecha'),
                     'hora' => $request->post('hora'),

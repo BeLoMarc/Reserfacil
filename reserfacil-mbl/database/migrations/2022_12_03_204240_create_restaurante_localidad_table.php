@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('restaurante_localidad', function (Blueprint $table) {
             $table->unsignedBigInteger('codigoRes');
             $table->unsignedBigInteger('codigoLoc');
-          //  $table->string('nombreLoc', 30);
             $table->primary(array('codigoRes', 'codigoLoc'));
             $table->foreign('codigoRes')->references('codigoRestaurante')->on('restaurantes');
             $table->foreign('codigoLoc')->references('codigoLocalidad')->on('localidad');
