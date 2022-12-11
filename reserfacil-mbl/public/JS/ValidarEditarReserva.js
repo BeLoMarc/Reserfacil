@@ -29,7 +29,13 @@ function validarEditarReserva() {
         inputFechaReserva.removeClass("is-valid");
         $('#malFechaReserva').empty();
         $('#malFechaReserva').append(`Debes elegir la fecha que quieres ir al restaurante`);
-    } else {
+    } else if ((Date.parse(inputFechaReserva.val()) + parseInt(89940000)) < Date.now()) {//lo que sumo son 23 horas y 59 minutos
+        inputFechaReserva.addClass("is-invalid");
+        inputFechaReserva.removeClass("is-valid");
+        $('#malFechaReserva').empty();
+        $('#malFechaReserva').append(`No puedes hacer una reserva en un dia pasado`);
+    }
+    else {
         inputFechaReserva.addClass("is-valid");
         inputFechaReserva.removeClass("is-invalid");
         fechaCorrecto = true;
