@@ -72,8 +72,8 @@
 
         @if (!Session::get('user'))
             <div class="nav__category">
-                <a class="nav__category__link-a">
-                    <span class="nav__category__link__span"> Para poder ver los detalles de los restaurantes no
+                <a class="nav__category__link">
+                    <span class="nav__category__link__span-a"> Para poder ver los detalles de los restaurantes no
                         olvides iniciar sesion
                     </span>
                 </a>
