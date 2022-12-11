@@ -28,11 +28,13 @@ function validarLoggin() {
         inputCorreoLoggin.removeClass("is-valid");
         $('#malCorreoLoggin').empty();
         $('#malCorreoLoggin').append(`El email no puede estar vacio`);
+        correoCorrecto = false;
     } else if (!(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(inputCorreoLoggin.val()))) {
         inputCorreoLoggin.addClass("is-invalid");
         inputCorreoLoggin.removeClass("is-valid");
         $('#malCorreoLoggin').empty();
         $('#malCorreoLoggin').append(`El email debe ser escrito siguiendo el patron NOMBRE+@+SERVIDOR+DOMINIO`);
+        correoCorrecto = false;
     } else {
         inputCorreoLoggin.addClass("is-valid");
         inputCorreoLoggin.removeClass("is-invalid");
@@ -48,7 +50,7 @@ function validarLoggin() {
         inputContraseniaLoggin.removeClass("is-valid");
         $('#malContraseñaLoggin').empty();
         $('#malContraseñaLoggin').append(`La Contraseña no puede estar vacia`);
-
+        contraseñaCorrecto = false;
     } else {
         inputContraseniaLoggin.addClass("is-valid");
         inputContraseniaLoggin.removeClass("is-invalid");
